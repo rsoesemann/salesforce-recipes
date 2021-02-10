@@ -1,0 +1,23 @@
+<apex:page standardController="Account" extensions="ActivateAccountCtrl" tabStyle="Account" recordSetVar="accounts">
+
+    <apex:includeLightning />
+
+    <div id="addHere" />
+
+    <apex:form >
+        <apex:actionFunction action="{!redirectToList}" name="close" />
+    </apex:form>
+    
+    <script>
+        $Lightning.use("c:activateAccounts", () => {
+            const recordIds = {!accountIds};
+            $Lightning.createComponent("c:activateAccounts", {!accountIds}, "addHere");
+        });
+
+        document.addEventListener("showToast", (event) => {
+            sforce.one.showToast(event.detail);
+        });
+
+        document.addEventListener("close", () => close());
+    </script>
+</apex:page>

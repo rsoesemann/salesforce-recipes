@@ -1,0 +1,12 @@
+<aura:component controller="ActivateAccountCtrl" implements="force:lightningQuickActionWithoutHeader,force:hasRecordId">
+
+    <!-- Lax -->
+    <c:lax context="{!this}" />
+
+    <!-- Events -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <!-- Markup -->
+    <c:resultToast aura:id="toast" />
+
+</aura:component>

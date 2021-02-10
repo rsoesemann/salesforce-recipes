@@ -1,0 +1,9 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner></lightning-spinner>
+    </template>
+
+    <template if:false={isLoading}>
+        <lightning-datatable key-field="id" data={accounts} columns={columns} hide-checkbox-column></lightning-datatable>
+    </template>
+</template>
