@@ -177,11 +177,11 @@
             <actionType>CustomButton</actionType>
             <sortOrder>2</sortOrder>
         </platformActionListItems>
-        <platformActionListItems>
+        <!-- <platformActionListItems>
             <actionName>Account.ActivateVfAction</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>3</sortOrder>
-        </platformActionListItems>
+        </platformActionListItems> -->
     </platformActionList>
     <quickActionList/>
     <relatedContent>

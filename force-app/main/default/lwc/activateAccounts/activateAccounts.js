@@ -11,6 +11,7 @@ export default class ActivateAccounts extends LightningElement {
     isLoading = false;
     accounts = [];
     columns = [
+        { label: 'Name', fieldName: 'Name', fixedWidth: 125 },
         { label: 'From Date', fieldName: 'fromDate', type: 'date', fixedWidth: 125 },
         { label: 'To Date', fieldName: 'toDate', type: 'date', fixedWidth: 100},
         { label: 'IMEI', fieldName: 'imei', fixedWidth: 150 },
@@ -26,7 +27,6 @@ export default class ActivateAccounts extends LightningElement {
 
     async connectedCallback() {
         this.isLoading = true;
-
         try {
             this.accounts = await query({ accountIds : this.accountIds })
         }

@@ -9,9 +9,11 @@
     </apex:form>
     
     <script>
-        $Lightning.use("c:activateAccounts", () => {
-            const recordIds = {!accountIds};
-            $Lightning.createComponent("c:activateAccounts", {!accountIds}, "addHere");
+
+        $Lightning.use("c:activateAccountsApp", () => {
+            const accountIds = {!serializedAccountIds};
+
+            $Lightning.createComponent("c:activateAccounts", {accountIds}, "addHere");
         });
 
         document.addEventListener("showToast", (event) => {

@@ -1,12 +1,13 @@
 public with sharing class ActivateAccountCtrl {
 
-    public Set<Id> accountIds { get; private set; }
-
+    public String serializedAccountIds { get; private set; }
+    private Set<Id> accountIds = new Set<Id>();
 
     // CONSTRUCTORS
 
     public ActivateAccountCtrl(ApexPages.StandardController ctrl) {
         accountIds = new Set<Id>{ ctrl.getId() };
+        serializedAccountIds = JSON.serialize(accountIds);
     }
 
 
@@ -17,6 +18,7 @@ public with sharing class ActivateAccountCtrl {
         }
 
         accountIds = new Map<Id, Account>(records).keySet();
+        serializedAccountIds = JSON.serialize(accountIds);
     }
 
 
