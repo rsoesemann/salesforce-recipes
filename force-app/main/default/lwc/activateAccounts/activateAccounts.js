@@ -20,7 +20,17 @@ export default class ActivateAccounts extends NavigationMixin(LightningElement) 
         this.isLoading = true;
 
         try {
-            this.accounts = await query({ accountIds : this.accountIds })
+            if(!this.accountIds.length) {
+                const closeQA = new CustomEvent("close", {   
+                    bubbles: true,
+                    composed: true
+                });
+                
+                this.dispatchEvent(closeQA);
+
+                this.showError('You need to select at least one Account.');
+            }
+            this.accounts = await query({ accountIds : this.accountIds });
         }
         catch(error) {
             this.showError(error);
@@ -40,9 +50,13 @@ export default class ActivateAccounts extends NavigationMixin(LightningElement) 
     }
 
 
-    showToast(variant, title, message, mode = "dismissable") {
-        const event = new ShowToastEvent({ variant, title, message, mode });
+    showToast(type, title, message) {
+        const showToast = new CustomEvent("showToast", {  
+                                                detail: { type, title, message },
+                                                bubbles: true,
+                                                composed: true
+                                            });
 
-        this.dispatchEvent(event);
+        this.dispatchEvent(showToast);
     }
 }

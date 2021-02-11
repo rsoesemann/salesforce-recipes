@@ -57,7 +57,13 @@ export default class Modal extends LightningElement {
 
     closeModal(event) {
         event.stopPropagation();
-        this.toggleModal();
+        
+        const closeQA = new CustomEvent("close", {   
+            bubbles: true,
+            composed: true
+        });
+        
+        this.dispatchEvent(closeQA);
     }
 
     innerClickHandler(event) {

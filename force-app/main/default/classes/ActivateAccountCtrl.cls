@@ -12,12 +12,7 @@ public with sharing class ActivateAccountCtrl {
 
 
     public ActivateAccountCtrl(ApexPages.StandardSetController ctrl) {
-        List<Account> records = ctrl.getSelected();
-        if(records.isEmpty()) {
-            records = ctrl.getRecords();
-        }
-
-        accountIds = new Map<Id, Account>(records).keySet();
+        accountIds = new Map<Id, SObject>(ctrl.getSelected()).keySet();
         serializedAccountIds = JSON.serialize(accountIds);
     }
 
