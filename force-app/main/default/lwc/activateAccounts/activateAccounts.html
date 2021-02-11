@@ -3,7 +3,9 @@
         <lightning-spinner></lightning-spinner>
     </template>
 
-    <template if:false={isLoading}>
-        <lightning-datatable key-field="id" data={accounts} columns={columns} hide-checkbox-column></lightning-datatable>
-    </template>
+    <c-modal modal-header="Modal Header" modal-tagline="Some tag line" modal-save-handler="showError">
+        <div slot="modalContent" class="modalContent slds-modal__content slds-p-around_medium">
+            <lightning-datatable key-field="id" data={accounts} columns={columns} hide-checkbox-column></lightning-datatable>
+        </div>
+    </c-modal>
 </template>
