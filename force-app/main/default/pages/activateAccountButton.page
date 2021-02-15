@@ -1,17 +1,19 @@
-<apex:page standardController="Account" extensions="ActivateAccountCtrl" tabStyle="Account" recordSetVar="accounts">
-
+<apex:page standardController="Account" applyBodyTag="false" extensions="ActivateAccountCtrl" tabStyle="Account" recordSetVar="accounts">
     <apex:includeLightning />
 
-    <div id="addHere" />
+    <body>
+        <div id="addHere" />
+    </body>
 
     <apex:form >
         <apex:actionFunction action="{!redirectToList}" name="close" />
     </apex:form>
     
     <script>
-        $Lightning.use("c:activateAccounts", () => {
-            const recordIds = {!accountIds};
-            $Lightning.createComponent("c:activateAccounts", {!accountIds}, "addHere");
+        $Lightning.use("c:activateAccountsApp", () => {
+            const accountIds = {!serializedAccountIds};
+
+            $Lightning.createComponent("c:activateAccounts", {accountIds}, "addHere");
         });
 
         document.addEventListener("showToast", (event) => {
@@ -20,4 +22,11 @@
 
         document.addEventListener("close", () => close());
     </script>
+    
+    <style>
+        body {
+            background: url("https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/lightning_design_system/lightning-design-system3/images/9830e3e95f11941fe2d0f3a14230f714_unit3-listview-wireframe.png") no-repeat;
+            background-size: cover;
+        }
+    </style>
 </apex:page>

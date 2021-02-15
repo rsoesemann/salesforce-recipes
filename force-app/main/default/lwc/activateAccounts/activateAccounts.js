@@ -1,26 +1,18 @@
 import { LightningElement, api } from 'lwc';
-
+import { NavigationMixin } from 'lightning/navigation';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-
 import query from "@salesforce/apex/ActivateAccountCtrl.query";
 
-export default class ActivateAccounts extends LightningElement {
+export default class ActivateAccounts extends NavigationMixin(LightningElement) {
     @api
     accountIds;
 
     isLoading = false;
     accounts = [];
     columns = [
-        { label: 'From Date', fieldName: 'fromDate', type: 'date', fixedWidth: 125 },
-        { label: 'To Date', fieldName: 'toDate', type: 'date', fixedWidth: 100},
-        { label: 'IMEI', fieldName: 'imei', fixedWidth: 150 },
-        { label: 'PDP Type', fieldName: 'pdpType', fixedWidth: 100 },
-        { label: 'Country', fieldName: 'country', fixedWidth: 100 },
-        { label: 'Uploaded', fieldName: 'volumeUpload', fixedWidth: 120 },
-        { label: 'Downloaded', fieldName: 'volumeDownload', fixedWidth: 125 },
-        { label: 'Aggregated', fieldName: 'volumeAggregated', fixedWidth: 125 },
-        { label: 'Sessions', fieldName: 'numberOfSessions', fixedWidth: 100 },
-        { label: 'Failed Sessions', fieldName: 'failedSessions', fixedWidth: 150 }
+        { label: 'Name', fieldName: 'Name', fixedWidth: 125 },
+        { label: 'Description', fieldName: 'Description', type: 'date', fixedWidth: 125 },
+        { label: 'Last Modified By', fieldName: 'LastModifiedById', type: 'date', fixedWidth: 100}
     ]
 
 
@@ -28,11 +20,23 @@ export default class ActivateAccounts extends LightningElement {
         this.isLoading = true;
 
         try {
-            this.accounts = await query({ accountIds : this.accountIds })
+            if(!this.accountIds.length) {
+                const closeQA = new CustomEvent("close", {   
+                    bubbles: true,
+                    composed: true
+                });
+                
+                this.dispatchEvent(closeQA);
+
+                this.showError('You need to select at least one Account.');
+            }
+            this.accounts = await query({ accountIds : this.accountIds });
         }
         catch(error) {
             this.showError(error);
         }
+
+        this.template.querySelector('c-modal').toggleModal();
 
         this.isLoading = false;
     }
@@ -46,9 +50,13 @@ export default class ActivateAccounts extends LightningElement {
     }
 
 
-    showToast(variant, title, message, mode = "dismissable") {
-        const event = new ShowToastEvent({ variant, title, message, mode });
+    showToast(type, title, message) {
+        const showToast = new CustomEvent("showToast", {  
+                                                detail: { type, title, message },
+                                                bubbles: true,
+                                                composed: true
+                                            });
 
-        this.dispatchEvent(event);
+        this.dispatchEvent(showToast);
     }
 }

@@ -9,16 +9,8 @@ public with sharing class Accounts extends fflib_SObjectDomain {
 
     // PUBLIC
 
-    public override void onValidate(Map<Id, SObject> old) {
-        // new VerifyThat(records).useConsitentNaming();
-        // new VerifyThat(records).useValidCreditCards();
-    }
-
-
     public override void onBeforeUpdate(Map<Id, SObject> old) {
         new ActivateAccounts(records).execute();
-        // new SynchronizeWithMulesoft(records).execute();
-        // new UpdateMergedContacts(records).execute
     }
 
 
