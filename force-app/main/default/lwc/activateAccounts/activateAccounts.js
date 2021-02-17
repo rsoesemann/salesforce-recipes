@@ -1,6 +1,5 @@
 import { LightningElement, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import query from "@salesforce/apex/ActivateAccountCtrl.query";
 
 export default class ActivateAccounts extends NavigationMixin(LightningElement) {
@@ -56,7 +55,6 @@ export default class ActivateAccounts extends NavigationMixin(LightningElement) 
                                                 bubbles: true,
                                                 composed: true
                                             });
-
         this.dispatchEvent(showToast);
     }
 }

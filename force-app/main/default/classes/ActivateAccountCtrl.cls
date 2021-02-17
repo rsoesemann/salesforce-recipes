@@ -1,7 +1,9 @@
 public with sharing class ActivateAccountCtrl {
 
-    public String serializedAccountIds { get; private set; }
     private Set<Id> accountIds = new Set<Id>();
+
+    public String serializedAccountIds { get; private set; }
+
 
     // CONSTRUCTORS
 
@@ -39,7 +41,7 @@ public with sharing class ActivateAccountCtrl {
         try {
             new ActivateAccounts(new Set<Id>{ accountId }).execute();
         }
-        catch (Exception ex) {
+        catch(Exception ex) {
             throw new AuraHandledException(ex.getMessage());
         }
     }
@@ -50,7 +52,7 @@ public with sharing class ActivateAccountCtrl {
         try {
             return new AccountsSelector().byId( new Set<Id>(accountIds) );
         }
-        catch (Exception ex) {
+        catch(Exception ex) {
             throw new AuraHandledException(ex.getMessage());
         }
     }
