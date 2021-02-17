@@ -1,0 +1,35 @@
+<apex:page controller="SetupPageCtrl" title="Setup" docType="html-5.0" sidebar="false" lightningStylesheets="true">
+
+    <c:setup ctrl="{!controller}">
+
+        <c:setupStep title="Establish API Connection" step="{!credential}">
+            <apex:pageBlock>
+                <apex:pageBlockSection columns="1">
+                    <apex:inputText value="{!credential.endpoint}" label="Base URL:" size="100" required="true" />
+                    <apex:inputText value="{!credential.username}" label="User Name:" size="100" required="true" />
+                    <apex:inputSecret value="{!credential.password}" label="Password:" size="100" redisplay="true" required="true" />
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </c:setupStep>
+
+        <c:setupStep title="Create Connected App" step="{!connectedApp}">
+            <apex:pageBlock>
+                <apex:pageBlockSection columns="1">
+                    <apex:inputText value="{!connectedApp.canvasAppURL}" label="Canvas App URL:" size="100" required="true" />
+                    <apex:inputText value="{!connectedApp.callbackUrl}" label="Callback URL:" size="100" required="true" />
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </c:setupStep>
+
+        <c:setupStep title="Third-Party Licenses (click for details)" collapsed="false">
+            <div class="slds-setup-assistant__step-summary-content slds-media__body">
+                This software uses the following open-source software. Their licenses require us to reproduce their copyright notice.
+            </div>
+            <ul>
+                <li><a href="https://github.com/rsoesemann/app-setup/blob/master/LICENSE" target="_blank">rsoesemann/app-setup</a></li>
+                <li><a href="https://github.com/financialforcedev/fflib-apex-common/blob/master/LICENSE" target="_blank">financialforcedev/fflib-apex-common</a></li>
+            </ul>
+        </c:setupStep>
+    </c:setup>
+
+</apex:page>
