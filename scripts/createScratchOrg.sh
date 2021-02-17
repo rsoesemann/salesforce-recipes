@@ -13,9 +13,11 @@ if [ -z "$DEV_HUB_URL" ]; then
   sfdx force:org:delete -p -u $SCRATCH_ORG_ALIAS
 fi
 
-
-echo "Creating scratch ORG"
+echo "Creating scratch org"
 execute sfdx force:org:create -a $SCRATCH_ORG_ALIAS -s -f ./config/project-scratch-def.json -d 7
+
+echo "Install dependencies"
+execute sfdx texei:package:dependencies:install -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS
 
 echo "Make sure Org user is english"
 sfdx force:data:record:update -s User -w "Name='User User'" -v "Languagelocalekey=en_US"
