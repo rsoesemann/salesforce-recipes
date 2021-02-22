@@ -14,7 +14,7 @@ if [ -z "$DEV_HUB_URL" ]; then
 fi
 
 echo "Creating scratch org"
-execute sfdx force:org:create -a $SCRATCH_ORG_ALIAS -s -f ./config/project-scratch-def.json -d 7
+execute sfdx force:org:create -a $SCRATCH_ORG_ALIAS -s -f ./config/project-scratch-def.json -d 30
 
 echo "Install dependencies"
 execute sfdx texei:package:dependencies:install -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS

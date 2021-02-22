@@ -177,11 +177,6 @@
             <actionType>CustomButton</actionType>
             <sortOrder>2</sortOrder>
         </platformActionListItems>
-        <!-- <platformActionListItems>
-            <actionName>Account.ActivateVfAction</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>3</sortOrder>
-        </platformActionListItems> -->
     </platformActionList>
     <quickActionList/>
     <relatedContent>
@@ -252,7 +247,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h63000002vnXt</masterLabel>
+        <masterLabel>00h1X000001y8j9</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
