@@ -1,0 +1,29 @@
+<aura:component controller="RecordFormCtrl" implements="lightning:availableForFlowScreens,force:lightningQuickActionWithoutHeader,force:hasRecordId,force:hasSObjectName" access="global">
+    <aura:attribute name="recordId" type="String" access="global"/>
+    <aura:attribute name="fieldSetName" type="String" default="CustomFieldSet" access="global"/>
+    <aura:attribute name="sObjectName" type="String" />
+
+    <aura:attribute name="fields" type="List" access="private" />
+
+    <!-- Lax -->
+    <c:lax context="{!this}" />
+
+    <!-- Events -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:registerEvent name="closeQa" type="force:closeQuickAction"/>
+
+    <!-- Markup -->
+    <c:resultToast aura:id="toast" />
+
+    <aura:if isTrue="{!v.fields.length}">
+        <lightning:recordForm 
+            aura:id="recordForm"
+            recordId="{!v.recordId}"
+            objectApiName="{!v.sObjectName}"
+            fields="{!v.fields}"
+            columns="2"
+            mode="edit"
+            onsubmit="{!c.onSave}"
+            oncancel="{!c.onCancel}" />
+    </aura:if>
+</aura:component>

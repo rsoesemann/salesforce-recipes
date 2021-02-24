@@ -1,0 +1,4 @@
+<design:component >
+    <design:attribute name="fieldSetName" label="Field Set Name"/>
+    <design:attribute name="recordId" label="Record Id"/>
+</design:component>

@@ -29,6 +29,7 @@ export default class ActivateAccounts extends NavigationMixin(LightningElement) 
 
                 this.showError('You need to select at least one Account.');
             }
+            
             this.accounts = await query({ accountIds : this.accountIds });
         }
         catch(error) {
