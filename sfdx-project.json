@@ -2,18 +2,10 @@
   "packageDirectories": [
     {
       "path": "force-app",
-      "default": true,
-      "dependencies": [
-        {
-          "package": "Copado Deployer@17.4.0.0"
-        }
-      ]
+      "default": true
     }
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "50.0",
-  "packageAliases": {
-    "Copado Deployer@17.4.0.0": "04t5p000000YGce"
-  }
+  "sourceApiVersion": "51.0"
 }
