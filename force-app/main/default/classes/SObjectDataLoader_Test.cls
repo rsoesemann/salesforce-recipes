@@ -1,6 +1,7 @@
 @IsTest
 private class SObjectDataLoader_Test {
     
+    // Reproduce issue https://github.com/afawcett/apex-sobjectdataloader/issues/18
     @IsTest
     private static void cloneAttachments() {
 
