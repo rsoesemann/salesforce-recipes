@@ -1,14 +1,19 @@
 public class Contact_t extends DomainBuilder {
 
     public Contact_t() {
-        super(Contact.SObjectType);
-
-        last(new Random().string());
+        this(new Account_t());
     }
 
     public Contact_t(Account_t a) {
         super(Contact.SObjectType);
+
         setParent(Contact.AccountId, a);
+
+        last(new Random().string());
+    }
+
+    public Contact_t add(Attachment_t at) {
+        return (Contact_t) at.setParent(Attachment.ParentId, this);
     }
 
     public Contact_t first(String value) {

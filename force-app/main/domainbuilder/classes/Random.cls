@@ -45,4 +45,9 @@ public class Random {
 	public Object value(List<Object> values) {
 		return values.get(integer(values.size()-1));
 	}
+
+	
+	public Blob blob() {
+		return Blob.valueOf(string(80));
+	}
 }
