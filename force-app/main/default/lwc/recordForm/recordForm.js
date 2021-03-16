@@ -1,6 +1,7 @@
 import { LightningElement, api, wire } from 'lwc';
 
 import getFieldsFromFieldSet from '@salesforce/apex/RecordFormCtrl.getFieldsFromFieldSet';
+import { FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
 export default class RecordForm extends LightningElement {
     @api recordId;
@@ -18,11 +19,6 @@ export default class RecordForm extends LightningElement {
 
 
     closeModal(event) {
-        const closeQA = new CustomEvent("close", {
-            bubbles: true,
-            composed: true
-        });
-
-        this.dispatchEvent(closeQA);
+        this.dispatchEvent( new FlowNavigationFinishEvent() );
     }
 }
