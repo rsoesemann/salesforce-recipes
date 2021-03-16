@@ -19,6 +19,13 @@ export default class RecordForm extends LightningElement {
 
 
     closeModal(event) {
+        // Note: LWC in Flow
         this.dispatchEvent( new FlowNavigationFinishEvent() );
+
+        // Note: Aura Quickaction
+        this.dispatchEvent( new CustomEvent("close", {
+                                                bubbles: true,
+                                                composed: true
+                                            }) );
     }
 }

@@ -10,7 +10,7 @@ public with sharing class Accounts extends fflib_SObjectDomain {
     // PUBLIC
 
     public override void onBeforeUpdate(Map<Id, SObject> old) {
-        new ActivateAccounts(records).execute();
+        //new ActivateAccounts(records).execute();
     }
 
 
