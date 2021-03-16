@@ -10,7 +10,7 @@
     </apex:form>
     
     <script>
-        $Lightning.use("c:activateAccountsApp", () => {
+        $Lightning.use("c:myApp", () => {
             const accountIds = {!serializedAccountIds};
 
             $Lightning.createComponent("c:activateAccounts", {accountIds}, "addHere");
