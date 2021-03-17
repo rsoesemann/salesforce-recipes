@@ -31,7 +31,7 @@ public abstract class Chainable {
 	}
 
 
-	public List<Id> execute() {
+	public Chainable execute() {
 		if(Test.isRunningTest()) {
 			executeSynchronously(new Context());
 			executeNext();
@@ -41,7 +41,7 @@ public abstract class Chainable {
 			jobIds.add(jobId);
 		}
 
-		return jobIds;
+		return this;
 	}
 
 
@@ -55,6 +55,11 @@ public abstract class Chainable {
     public Object getShared(String key) {
         return sharedVariables.get(key);
     }
+
+
+	public List<Id> jobIds() {
+		return jobIds;
+	}
 
 
 	// PROTECTED

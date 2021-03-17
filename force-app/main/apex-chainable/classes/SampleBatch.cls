@@ -1,4 +1,4 @@
-public class SampleBatch extends ChainableBatch {
+public with sharing class SampleBatch extends ChainableBatch {
 
 	protected override Iterable<Object> start(Context ctx) {
 		Chainable_Test.log(this);

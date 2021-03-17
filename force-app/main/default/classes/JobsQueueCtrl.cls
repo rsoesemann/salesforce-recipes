@@ -12,12 +12,12 @@ public with sharing class JobsQueueCtrl {
     // PUBLIC
 
     public void enqueue() {
-        List<Id> jobIds = new RunJob('CommitMetadata', 4)
+        Chainable chain = new RunJob('CommitMetadata', 4)
                                 .then( new RunJob('CommitProfilesAndPermSets', 7) )
                                 .then( new RunJob('CommitDestructiveChanges', 3))
                                 .execute();
 
-        serializedJobIds = JSON.serialize(jobIds);
+        serializedJobIds = JSON.serialize(chain.jobIds());
     }
 
     

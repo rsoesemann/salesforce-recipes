@@ -1,4 +1,4 @@
-public class SampleSchedulable extends ChainableSchedulable {
+public with sharing class SampleSchedulable extends ChainableSchedulable {
 
     protected override void execute(Context ctx) {
         for(CronTrigger cron : [SELECT Id FROM CronTrigger WHERE CronJobDetail.Name LIKE :name()]) {
