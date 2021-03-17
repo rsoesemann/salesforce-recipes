@@ -31,6 +31,9 @@ execute sfdx force:user:permset:assign -n Admin
 echo "Create sample data"
 sfdx force:apex:execute -f scripts/createSampleData.apex -u $SCRATCH_ORG_ALIAS
 
+echo "Create remote site setting"
+sfdx shane:remotesite:create -n Slowwly -u http://slowwly.robertomurray.co.uk
+
 echo "Running apex tests"
 execute sfdx force:apex:test:run -l RunLocalTests -w 30
 
