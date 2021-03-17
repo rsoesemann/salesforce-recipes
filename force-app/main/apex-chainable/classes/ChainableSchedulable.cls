@@ -14,8 +14,8 @@ public abstract class ChainableSchedulable extends Chainable
     }
 
 
-    public override void executeAsynchronously() {
-        System.schedule(name(), cronExpression(), this);
+    public override Id executeAsynchronously() {
+        return System.schedule(name(), cronExpression(), this);
     }
 
 

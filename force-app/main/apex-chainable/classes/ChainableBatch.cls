@@ -31,8 +31,8 @@ public abstract class ChainableBatch extends Chainable
     }
 
 
-    public override void executeAsynchronously() {
-        Database.executeBatch(this, batchSize());
+    public override Id executeAsynchronously() {
+        return Database.executeBatch(this, batchSize());
     }
 
 

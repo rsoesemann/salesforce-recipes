@@ -5,10 +5,12 @@ public abstract class Chainable {
 
 	private Map<String, Object> sharedVariables = new Map<String, Object>();
 
+	private List<Id> jobIds = new List<Id>();
+
 
 	// ABSTRACT
 
-	protected abstract void executeAsynchronously();
+	protected abstract Id executeAsynchronously();
 	protected abstract void executeSynchronously(Context ctx);
 
 	
@@ -29,16 +31,17 @@ public abstract class Chainable {
 	}
 
 
-	public Chainable execute() {
+	public List<Id> execute() {
 		if(Test.isRunningTest()) {
 			executeSynchronously(new Context());
 			executeNext();
 		}
 		else {
-			executeAsynchronously();
+			Id jobId = executeAsynchronously();
+			jobIds.add(jobId);
 		}
 
-		return this;
+		return jobIds;
 	}
 
 
@@ -53,7 +56,7 @@ public abstract class Chainable {
         return sharedVariables.get(key);
     }
 
-	
+
 	// PROTECTED
 
 	protected void executeNext() {

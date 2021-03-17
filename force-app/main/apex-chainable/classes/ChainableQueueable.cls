@@ -16,8 +16,8 @@ public abstract class ChainableQueueable extends Chainable
 
     // OVERRIDE
 
-    public override void executeAsynchronously() {
-        System.enqueueJob(this);
+    public override Id executeAsynchronously() {
+        return System.enqueueJob(this);
     }
 
 

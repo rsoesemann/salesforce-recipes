@@ -1,0 +1,21 @@
+<apex:page standardController="Account" extensions="JobsQueueCtrl" action="{!enqueue}" applyBodyTag="false" tabStyle="Account">
+ 
+    <apex:includeLightning />
+
+    <body>
+        <div id="addHere" />
+    </body>
+    
+    <script>
+        $Lightning.use("c:myApp", () => {
+            const jobIds = {!serializedJobIds};
+            $Lightning.createComponent("c:jobsQueueStatus", {jobIds}, "addHere");
+        });
+
+        document.addEventListener("showToast", (event) => {
+            sforce.one.showToast(event.detail);
+        });
+
+        document.addEventListener("close", () => close());
+    </script>
+</apex:page>
