@@ -4,7 +4,6 @@ public abstract class Chainable {
 	private Chainable next;
 
 	private Map<String, Object> sharedVariables = new Map<String, Object>();
-
 	private List<Id> jobIds = new List<Id>();
 
 
@@ -25,6 +24,7 @@ public abstract class Chainable {
 			next.previous = this;
 			
 			next.sharedVariables = sharedVariables;
+			next.jobIds = jobIds;
 		}
 
 		return this;
@@ -57,7 +57,7 @@ public abstract class Chainable {
     }
 
 
-	public List<Id> jobIds() {
+	public static List<Id> jobIds() {
 		return jobIds;
 	}
 

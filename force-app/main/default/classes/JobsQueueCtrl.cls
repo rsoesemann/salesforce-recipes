@@ -2,6 +2,7 @@ public with sharing class JobsQueueCtrl {
 
     public String serializedJobIds { get; private set; }
 
+    
     // CONSTRUCTORS
 
     public JobsQueueCtrl(ApexPages.StandardController ctrl) {
