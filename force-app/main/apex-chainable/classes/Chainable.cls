@@ -57,7 +57,7 @@ public abstract class Chainable {
     }
 
 
-	public static List<Id> jobIds() {
+	public List<Id> jobIds() {
 		return jobIds;
 	}
 

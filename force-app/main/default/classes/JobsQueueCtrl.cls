@@ -2,7 +2,7 @@ public with sharing class JobsQueueCtrl {
 
     public String serializedJobIds { get; private set; }
 
-    
+
     // CONSTRUCTORS
 
     public JobsQueueCtrl(ApexPages.StandardController ctrl) {
@@ -36,18 +36,5 @@ public with sharing class JobsQueueCtrl {
         }
 
         return result;
-    }
-
-
-    public PageReference redirectToList() {
-        return new ApexPages.Action('{!List}').invoke();
-    }
-
-
-    // INNER
-
-    public class Job {
-        @AuraEnabled public String label;
-        @AuraEnabled public String value;
     }
 }
