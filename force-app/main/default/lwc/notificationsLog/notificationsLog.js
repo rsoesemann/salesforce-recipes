@@ -16,17 +16,17 @@ export default class NotificationsLog extends LightningElement {
     }
 
 
-    disconnectedCallback() {
-        unsubscribe(this.subscription, response => {
-            console.log('Successfully unsubscribed');
-        });
-    }
-
-
     handleEvent(event) {
         debugger;
         this.events = this.events || [];
         this.events.push( { Id: "sdafs", txt_Status__c : "dsfgsds"} );
         this.events = JSON.parse(JSON.stringify(this.events));
+    }
+
+
+    disconnectedCallback() {
+        unsubscribe(this.subscription, response => {
+            console.log('Successfully unsubscribed');
+        });
     }
 }

@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Commit_Add_Files</name>
         <label>Commit: Add Files</label>
-        <locationX>847</locationX>
-        <locationY>200</locationY>
+        <locationX>532</locationX>
+        <locationY>163</locationY>
         <actionName>MultiCommitCtrl</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -14,7 +14,7 @@
         <inputParameters>
             <name>responseWaitSec</name>
             <value>
-                <numberValue>50.0</numberValue>
+                <numberValue>10.0</numberValue>
             </value>
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -22,13 +22,10 @@
     <actionCalls>
         <name>Commit_Destructive_Changes</name>
         <label>Commit:Destructive Changes</label>
-        <locationX>849</locationX>
-        <locationY>662</locationY>
+        <locationX>1093</locationX>
+        <locationY>176</locationY>
         <actionName>MultiCommitCtrl</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <targetReference>Commit_Destructive_Changes_Wait</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>responseWaitSec</name>
@@ -41,8 +38,8 @@
     <actionCalls>
         <name>Commit_Profiles_Permsets</name>
         <label>Commit: Profiles &amp; Permsets</label>
-        <locationX>847</locationX>
-        <locationY>411</locationY>
+        <locationX>803</locationX>
+        <locationY>157</locationY>
         <actionName>MultiCommitCtrl</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -52,7 +49,7 @@
         <inputParameters>
             <name>responseWaitSec</name>
             <value>
-                <numberValue>30.0</numberValue>
+                <numberValue>10.0</numberValue>
             </value>
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -86,17 +83,10 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <recordCreates>
-        <name>Notify_Done</name>
-        <label>Notify: Done</label>
-        <locationX>852</locationX>
-        <locationY>900</locationY>
-        <inputReference>NotifyDone</inputReference>
-    </recordCreates>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <start>
-        <locationX>721</locationX>
-        <locationY>49</locationY>
+        <locationX>60</locationX>
+        <locationY>143</locationY>
         <connector>
             <targetReference>Commit_Add_Files</targetReference>
         </connector>
@@ -113,8 +103,8 @@
     <waits>
         <name>Commit_Add_Files_Wait</name>
         <label>Commit: Add Files Wait</label>
-        <locationX>1030</locationX>
-        <locationY>200</locationY>
+        <locationX>529</locationX>
+        <locationY>337</locationY>
         <defaultConnectorLabel>Default Path</defaultConnectorLabel>
         <waitEvents>
             <name>Commit_Add_Files_Resume</name>
@@ -126,51 +116,23 @@
             <inputParameters>
                 <name>txt_Status__c</name>
                 <value>
-                    <stringValue>Success</stringValue>
+                    <stringValue>&quot;Success&quot;</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>ext_JobId__c</name>
                 <value>
-                    <stringValue>1234</stringValue>
+                    <stringValue>&quot;1234&quot;</stringValue>
                 </value>
             </inputParameters>
             <label>Commit: Add Files Resume</label>
         </waitEvents>
     </waits>
     <waits>
-        <name>Commit_Destructive_Changes_Wait</name>
-        <label>Commit Destructive Changes Wait</label>
-        <locationX>1029</locationX>
-        <locationY>663</locationY>
-        <defaultConnectorLabel>Default Path</defaultConnectorLabel>
-        <waitEvents>
-            <name>Commit_Destructive_Changes_Resume</name>
-            <conditionLogic>and</conditionLogic>
-            <connector>
-                <targetReference>Notify_Done</targetReference>
-            </connector>
-            <eventType>NotificationReceived__e</eventType>
-            <inputParameters>
-                <name>ext_JobId__c</name>
-                <value>
-                    <stringValue>1234</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>txt_Status__c</name>
-                <value>
-                    <stringValue>Success</stringValue>
-                </value>
-            </inputParameters>
-            <label>Commit Destructive Changes Resume</label>
-        </waitEvents>
-    </waits>
-    <waits>
         <name>Commit_Profiles_Permsets_Success</name>
         <label>Commit_Profiles_Permsets Success</label>
-        <locationX>1031</locationX>
-        <locationY>412</locationY>
+        <locationX>806</locationX>
+        <locationY>337</locationY>
         <defaultConnectorLabel>Default Path</defaultConnectorLabel>
         <waitEvents>
             <name>Commit_Profiles_Permsets_Successfsd</name>
@@ -182,13 +144,13 @@
             <inputParameters>
                 <name>ext_JobId__c</name>
                 <value>
-                    <stringValue>1234</stringValue>
+                    <stringValue>&quot;1234&quot;</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>txt_Status__c</name>
                 <value>
-                    <stringValue>Success</stringValue>
+                    <stringValue>&quot;Success&quot;</stringValue>
                 </value>
             </inputParameters>
             <label>Commit_Profiles_Permsets Success</label>
