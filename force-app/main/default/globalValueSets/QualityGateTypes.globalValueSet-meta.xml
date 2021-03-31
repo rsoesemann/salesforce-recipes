@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>PMD</fullName>
+        <default>false</default>
+        <label>PMD</label>
+    </customValue>
+    <customValue>
+        <fullName>CodeScan</fullName>
+        <default>false</default>
+        <label>CodeScan</label>
+    </customValue>
+    <customValue>
+        <fullName>Clayton</fullName>
+        <default>false</default>
+        <label>Clayton</label>
+    </customValue>
+    <customValue>
+        <fullName>Manual</fullName>
+        <default>false</default>
+        <label>Manual</label>
+    </customValue>
+    <masterLabel>Quality Gate Types</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

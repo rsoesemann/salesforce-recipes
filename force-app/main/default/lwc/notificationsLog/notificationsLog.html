@@ -1,0 +1,8 @@
+<template>
+    Notifications ({events.length}):
+    <ul>
+        <template for:each={events} for:item="event">
+            <li key={event.Id}>{event.txt_Status__c}</li>
+        </template>
+    </ul>
+</template>
