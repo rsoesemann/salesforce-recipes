@@ -2,8 +2,7 @@ public with sharing class MultiCommitCtrl {
 
     // PUBLIC
 
-    @AuraEnabled
-    public static void startFlow(){
+    public void startFlow(){
         try {
             new Flow.Interview.MultiCommit( new Map<String, Object>() ).start();
         }

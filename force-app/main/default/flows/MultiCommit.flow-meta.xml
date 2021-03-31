@@ -95,13 +95,13 @@
     </recordCreates>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <start>
-        <locationX>123</locationX>
-        <locationY>75</locationY>
+        <locationX>721</locationX>
+        <locationY>49</locationY>
         <connector>
             <targetReference>Commit_Add_Files</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>NotifyDone</name>
         <dataType>SObject</dataType>
@@ -113,7 +113,7 @@
     <waits>
         <name>Commit_Add_Files_Wait</name>
         <label>Commit: Add Files Wait</label>
-        <locationX>1031</locationX>
+        <locationX>1030</locationX>
         <locationY>200</locationY>
         <defaultConnectorLabel>Default Path</defaultConnectorLabel>
         <waitEvents>
@@ -141,8 +141,8 @@
     <waits>
         <name>Commit_Destructive_Changes_Wait</name>
         <label>Commit Destructive Changes Wait</label>
-        <locationX>1031</locationX>
-        <locationY>667</locationY>
+        <locationX>1029</locationX>
+        <locationY>663</locationY>
         <defaultConnectorLabel>Default Path</defaultConnectorLabel>
         <waitEvents>
             <name>Commit_Destructive_Changes_Resume</name>
@@ -169,8 +169,8 @@
     <waits>
         <name>Commit_Profiles_Permsets_Success</name>
         <label>Commit_Profiles_Permsets Success</label>
-        <locationX>1032</locationX>
-        <locationY>409</locationY>
+        <locationX>1031</locationX>
+        <locationY>412</locationY>
         <defaultConnectorLabel>Default Path</defaultConnectorLabel>
         <waitEvents>
             <name>Commit_Profiles_Permsets_Successfsd</name>

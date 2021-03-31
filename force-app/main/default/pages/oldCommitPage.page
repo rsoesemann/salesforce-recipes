@@ -1,9 +1,7 @@
-<apex:page showHeader="false" sidebar="false">
+<apex:page controller="MultiCommitCtrl" showHeader="false" sidebar="false" action="{!startFlow}">
     <apex:includeLightning />
 
-    <body>
-        <div id="notificationsLog" />
-    </body>
+    <div id="notificationsLog" />
 
     <script>
         $Lightning.use("c:myApp", () => {

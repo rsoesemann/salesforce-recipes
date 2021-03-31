@@ -1,6 +1,5 @@
 import { LightningElement } from 'lwc';
 import { subscribe, unsubscribe, onError } from 'lightning/empApi';
-import startFlow from "@salesforce/apex/MultiCommitCtrl.startFlow";
 
 export default class NotificationsLog extends LightningElement {
     subscription = {};
@@ -14,8 +13,6 @@ export default class NotificationsLog extends LightningElement {
         onError(error => {
             console.log('Received error from server: ', JSON.stringify(error));
         });
-
-        startFlow();
     }
 
 
