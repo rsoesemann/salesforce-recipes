@@ -1,0 +1,17 @@
+<apex:page showHeader="false" sidebar="false">
+    <apex:includeLightning />
+
+    <body>
+        <div id="notificationsLog" />
+    </body>
+
+    <script>
+        $Lightning.use("c:myApp", () => {
+            $Lightning.createComponent("c:notificationsLog", {}, "notificationsLog");
+        });
+
+        document.addEventListener("showToast", (event) => {
+            sforce.one.showToast(event.detail);
+        });
+    </script>
+</apex:page>
