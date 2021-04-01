@@ -5,7 +5,7 @@ public with sharing class MultiCommitCtrl {
     public void startFlow(){
         try {
             new Flow.Interview.MultiCommit(new Map<String, Object>{
-                                                'contextId' => new Random().string(20)
+                                                'contextId' => new Random().string(18)
                                             }).start();
         }
         catch (Exception e) {

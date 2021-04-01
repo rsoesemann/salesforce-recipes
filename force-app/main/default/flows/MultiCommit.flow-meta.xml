@@ -80,6 +80,14 @@
             <stringValue>Done</stringValue>
         </value>
     </constants>
+    <constants>
+        <name>SUCCESS</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Success</stringValue>
+        </value>
+    </constants>
+    <description>Example showing how to orchestrate long-running backend processes using a paused and resumed flow.</description>
     <interviewLabel>MultiCommit {!$Flow.CurrentDateTime}</interviewLabel>
     <label>MultiCommit</label>
     <processMetadataValues>
@@ -109,22 +117,27 @@
             <targetReference>Backend_Commit_Files</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>contextId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
-        <value>
-            <stringValue>123456</stringValue>
-        </value>
+    </variables>
+    <variables>
+        <name>NotifyDone</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>NotificationReceived__e</objectType>
     </variables>
     <waits>
         <name>Wait_for_Notification</name>
         <label>Wait for Notification</label>
-        <locationX>608</locationX>
-        <locationY>574</locationY>
+        <locationX>607</locationX>
+        <locationY>573</locationY>
         <defaultConnectorLabel>Default Path</defaultConnectorLabel>
         <waitEvents>
             <name>Status_Success_Commit1</name>
@@ -136,16 +149,20 @@
             <inputParameters>
                 <name>ext_JobId__c</name>
                 <value>
-                    <stringValue>&quot;1234&quot;</stringValue>
+                    <elementReference>contextId</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>txt_Status__c</name>
                 <value>
-                    <stringValue>&quot;Success&quot;</stringValue>
+                    <elementReference>SUCCESS</elementReference>
                 </value>
             </inputParameters>
             <label>Status Success</label>
+            <outputParameters>
+                <assignToReference>NotifyDone</assignToReference>
+                <name>NotificationReceived__e</name>
+            </outputParameters>
         </waitEvents>
     </waits>
     <waits>
@@ -162,15 +179,15 @@
             </connector>
             <eventType>NotificationReceived__e</eventType>
             <inputParameters>
-                <name>txt_Status__c</name>
+                <name>ext_JobId__c</name>
                 <value>
-                    <stringValue>&quot;Success&quot;</stringValue>
+                    <elementReference>contextId</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>ext_JobId__c</name>
+                <name>txt_Status__c</name>
                 <value>
-                    <stringValue>&quot;1234&quot;</stringValue>
+                    <elementReference>SUCCESS</elementReference>
                 </value>
             </inputParameters>
             <label>Status Success</label>
