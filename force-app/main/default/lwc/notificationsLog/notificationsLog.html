@@ -1,4 +1,13 @@
 <template>
+    <c-lwc_streaming_api 
+        channel="/event/NotificationReceived__e" 
+        api-version="51.0" 
+        debug=true
+        onmessage={handleMessage} 
+        onerror={handleError} 
+        class="cometD">
+    </c-lwc_streaming_api>
+
     Notifications ({events.length}):
     <ul>
         <template for:each={events} for:item="event">
