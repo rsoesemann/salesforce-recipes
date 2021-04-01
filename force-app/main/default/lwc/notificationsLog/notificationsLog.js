@@ -1,32 +1,61 @@
-import { LightningElement } from 'lwc';
-import { subscribe, unsubscribe, onError } from 'lightning/empApi';
+import { LightningElement, wire, track } from "lwc";
+import { loadScript } from "lightning/platformResourceLoader";
+import cometdlwc from "@salesforce/resourceUrl/cometd";
+import getSessionId from '@salesforce/apex/MultiCommitCtrl.getSessionId';
+
 
 export default class NotificationsLog extends LightningElement {
-    subscription = {};
-    events = [];
+    libInitialized = false;
+    @track sessionId;
+    @track error;
 
-    connectedCallback() {
-        onError(error => {
-            console.log('Received error from server: ', JSON.stringify(error));
-        });
-
-        subscribe('/event/NotificationReceived__e', -1, this.handleEvent).then(response => {
-            this.subscription = response;
-        });
+    @wire(getSessionId)
+    wiredSessionId({ error, data }) {
+        if(data) {
+            console.log(data);
+            this.sessionId = data;
+            this.error = undefined;
+            loadScript(this, cometdlwc)
+                .then(() => {
+                    this.initializeCometD()
+                });
+        } 
+        else if(error) {
+            console.log(error);
+            this.error = error;
+            this.sessionId = undefined;
+        }
     }
 
+    initializeCometD() {
+        if (this.libInitialized) {
+            return;
+        }
 
-    handleEvent(event) {
-        debugger;
-        this.events = this.events || [];
-        this.events.push( { Id: "sdafs", txt_Status__c : "dsfgsds", txt_JobName__c : "cvhfdd", ext_JobId__c : "zjtr"} );
-        this.events = JSON.parse(JSON.stringify(this.events));
-    }
+        this.libInitialized = true;
 
+        var cometdlib = new window.org.cometd.CometD();
 
-    disconnectedCallback() {
-        unsubscribe(this.subscription, response => {
-            this.subscription = null;
+        //Calling configure method of cometD class, to setup authentication which will be used in handshaking
+        cometdlib.configure({
+            url: window.location.protocol + '//' + window.location.hostname + '/cometd/47.0/',
+            requestHeaders: { Authorization: 'OAuth ' + this.sessionId },
+            appendMessageTypeToURL: false,
+            logLevel: 'debug'
+        });
+
+        cometdlib.websocketEnabled = false;
+
+        cometdlib.handshake(function (status) {
+
+            if (status.successful) {
+                // Successfully connected to the server.
+                // Now it is possible to subscribe or send messages
+                console.log('Successfully connected to server');
+            } else {
+                /// Cannot handshake with the server, alert user.
+                console.error('Error in handshaking: ' + JSON.stringify(status));
+            }
         });
     }
 }

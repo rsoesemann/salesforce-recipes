@@ -5,6 +5,7 @@
     <label>Status</label>
     <length>255</length>
     <required>true</required>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

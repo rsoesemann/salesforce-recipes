@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>ext_JobId__c</columns>
+    <columns>txt_JobName__c</columns>
+    <columns>txt_Status__c</columns>
+    <columns>LAST_UPDATE</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>
