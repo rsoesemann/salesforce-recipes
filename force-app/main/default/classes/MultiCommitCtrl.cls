@@ -4,19 +4,22 @@ public with sharing class MultiCommitCtrl {
 
     public void startFlow(){
         try {
-            new Flow.Interview.MultiCommit( new Map<String, Object>() ).start();
+            new Flow.Interview.MultiCommit(new Map<String, Object>{
+                                                'contextId' => new Random().string(20)
+                                            }).start();
         }
         catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
+System.debug(LoggingLevel.ERROR, 'Flow started');
     }
 
 
     @InvocableMethod(label='Fake Callout' description='Does an HTTP Callout which comes back after n seconds')
-    public static List<String> callout(List<Integer> responseWaitSec) {
+    public static List<String> callout(List<BackendParameter> parameter) {
         List<String> result = new List<String>();
 
-        calloutBackend(responseWaitSec.get(0));
+        calloutBackend(parameter.get(0));
 
         return result;
     }
@@ -24,22 +27,32 @@ public with sharing class MultiCommitCtrl {
 
     // PRIVATE
 
-    private static void calloutBackend(Integer responseWaitSec) {
-        Integer waitForResponse = responseWaitSec * 1000;
-
+    private static void calloutBackend(BackendParameter parameter) {
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('http://slowwly.robertomurray.co.uk/delay/' + waitForResponse + '/url/http://api.copa.do/');
+        request.setEndpoint('http://slowwly.robertomurray.co.uk/delay/' + 10000 + '/url/' + parameter.contextId + '-' + parameter.jobName);
         request.setMethod('GET');
-        request.setTimeout(waitForResponse * 2);
+        request.setTimeout(20000);
+System.debug(LoggingLevel.ERROR, 'Sent request ' + parameter);
         new Http().send(request);
 
-        updateNotificationRecord();
+        updateNotificationRecord(parameter);
     }
 
     
-    private static void updateNotificationRecord() {
-        Notification__c notification = new Notification__c(ext_JobId__c = '1234');
+    private static void updateNotificationRecord(BackendParameter parameter) {
+        Notification__c notification = new Notification__c();
+        notification.ext_JobId__c = parameter.contextId;
+        notification.txt_JobName__c = parameter.jobName;
         notification.txt_Status__c = 'Success';
         upsert notification ext_JobId__c;
+System.debug(LoggingLevel.ERROR, 'Upserted ' + notification);
+    }
+
+
+    // INNER
+
+    public class BackendParameter {
+        @InvocableVariable public String contextId;
+        @InvocableVariable public String jobName;
     }
 }

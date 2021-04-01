@@ -56,4 +56,8 @@
         <tab>Notification__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+    <tabSettings>
+        <tab>Setup</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>

@@ -2,7 +2,7 @@
     Notifications ({events.length}):
     <ul>
         <template for:each={events} for:item="event">
-            <li key={event.Id}>{event.txt_Status__c}</li>
+            <li key={event.Id}>{event.txt_JobName__c} : {event.txt_Status__c} ({event.ext_JobId__c})</li>
         </template>
     </ul>
 </template>

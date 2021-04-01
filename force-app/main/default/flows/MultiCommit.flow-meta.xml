@@ -1,55 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <name>Commit_Add_Files</name>
-        <label>Commit: Add Files</label>
-        <locationX>532</locationX>
-        <locationY>163</locationY>
+        <name>Backend_Commit_Destructive_Changes</name>
+        <label>Backend: Commit Destructive Changes</label>
+        <locationX>357</locationX>
+        <locationY>573</locationY>
         <actionName>MultiCommitCtrl</actionName>
         <actionType>apex</actionType>
-        <connector>
-            <targetReference>Commit_Add_Files_Wait</targetReference>
-        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
-            <name>responseWaitSec</name>
+            <name>contextId</name>
             <value>
-                <numberValue>10.0</numberValue>
+                <elementReference>contextId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>jobName</name>
+            <value>
+                <stringValue>Commit Destructive Changes</stringValue>
             </value>
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
-        <name>Commit_Destructive_Changes</name>
-        <label>Commit:Destructive Changes</label>
-        <locationX>1093</locationX>
-        <locationY>176</locationY>
+        <name>Backend_Commit_Files</name>
+        <label>Backend: Commit Files</label>
+        <locationX>847</locationX>
+        <locationY>206</locationY>
         <actionName>MultiCommitCtrl</actionName>
         <actionType>apex</actionType>
+        <connector>
+            <targetReference>Wait_for_Notification_Commit1</targetReference>
+        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
-            <name>responseWaitSec</name>
+            <name>contextId</name>
             <value>
-                <numberValue>6.0</numberValue>
+                <elementReference>contextId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>jobName</name>
+            <value>
+                <stringValue>&quot;Commit Files&quot;</stringValue>
             </value>
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
-        <name>Commit_Profiles_Permsets</name>
-        <label>Commit: Profiles &amp; Permsets</label>
-        <locationX>803</locationX>
-        <locationY>157</locationY>
+        <name>Backend_Commit_Profiles_PermSets</name>
+        <label>Backend: Commit Profiles &amp; PermSets</label>
+        <locationX>607</locationX>
+        <locationY>365</locationY>
         <actionName>MultiCommitCtrl</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>Commit_Profiles_Permsets_Success</targetReference>
+            <targetReference>Wait_for_Notification</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
-            <name>responseWaitSec</name>
+            <name>contextId</name>
             <value>
-                <numberValue>10.0</numberValue>
+                <elementReference>contextId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>jobName</name>
+            <value>
+                <stringValue>Commit Profiles &amp; PermSets</stringValue>
             </value>
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -85,75 +103,77 @@
     <processType>AutoLaunchedFlow</processType>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <start>
-        <locationX>60</locationX>
-        <locationY>143</locationY>
+        <locationX>721</locationX>
+        <locationY>48</locationY>
         <connector>
-            <targetReference>Commit_Add_Files</targetReference>
+            <targetReference>Backend_Commit_Files</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
-        <name>NotifyDone</name>
-        <dataType>SObject</dataType>
+        <name>contextId</name>
+        <dataType>String</dataType>
         <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>NotificationReceived__e</objectType>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>123456</stringValue>
+        </value>
     </variables>
     <waits>
-        <name>Commit_Add_Files_Wait</name>
-        <label>Commit: Add Files Wait</label>
-        <locationX>529</locationX>
-        <locationY>337</locationY>
+        <name>Wait_for_Notification</name>
+        <label>Wait for Notification</label>
+        <locationX>608</locationX>
+        <locationY>574</locationY>
         <defaultConnectorLabel>Default Path</defaultConnectorLabel>
         <waitEvents>
-            <name>Commit_Add_Files_Resume</name>
+            <name>Status_Success_Commit1</name>
             <conditionLogic>and</conditionLogic>
             <connector>
-                <targetReference>Commit_Profiles_Permsets</targetReference>
+                <targetReference>Backend_Commit_Destructive_Changes</targetReference>
             </connector>
             <eventType>NotificationReceived__e</eventType>
-            <inputParameters>
-                <name>txt_Status__c</name>
-                <value>
-                    <stringValue>&quot;Success&quot;</stringValue>
-                </value>
-            </inputParameters>
             <inputParameters>
                 <name>ext_JobId__c</name>
                 <value>
                     <stringValue>&quot;1234&quot;</stringValue>
                 </value>
             </inputParameters>
-            <label>Commit: Add Files Resume</label>
+            <inputParameters>
+                <name>txt_Status__c</name>
+                <value>
+                    <stringValue>&quot;Success&quot;</stringValue>
+                </value>
+            </inputParameters>
+            <label>Status Success</label>
         </waitEvents>
     </waits>
     <waits>
-        <name>Commit_Profiles_Permsets_Success</name>
-        <label>Commit_Profiles_Permsets Success</label>
-        <locationX>806</locationX>
-        <locationY>337</locationY>
+        <name>Wait_for_Notification_Commit1</name>
+        <label>Wait for Notification</label>
+        <locationX>846</locationX>
+        <locationY>356</locationY>
         <defaultConnectorLabel>Default Path</defaultConnectorLabel>
         <waitEvents>
-            <name>Commit_Profiles_Permsets_Successfsd</name>
+            <name>Status_Success</name>
             <conditionLogic>and</conditionLogic>
             <connector>
-                <targetReference>Commit_Destructive_Changes</targetReference>
+                <targetReference>Backend_Commit_Profiles_PermSets</targetReference>
             </connector>
             <eventType>NotificationReceived__e</eventType>
-            <inputParameters>
-                <name>ext_JobId__c</name>
-                <value>
-                    <stringValue>&quot;1234&quot;</stringValue>
-                </value>
-            </inputParameters>
             <inputParameters>
                 <name>txt_Status__c</name>
                 <value>
                     <stringValue>&quot;Success&quot;</stringValue>
                 </value>
             </inputParameters>
-            <label>Commit_Profiles_Permsets Success</label>
+            <inputParameters>
+                <name>ext_JobId__c</name>
+                <value>
+                    <stringValue>&quot;1234&quot;</stringValue>
+                </value>
+            </inputParameters>
+            <label>Status Success</label>
         </waitEvents>
     </waits>
 </Flow>
