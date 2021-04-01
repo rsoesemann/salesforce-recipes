@@ -11,7 +11,6 @@ public with sharing class MultiCommitCtrl {
         catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
-System.debug(LoggingLevel.ERROR, 'Flow started');
     }
 
 
@@ -32,7 +31,6 @@ System.debug(LoggingLevel.ERROR, 'Flow started');
         request.setEndpoint('http://slowwly.robertomurray.co.uk/delay/' + 10000 + '/url/' + parameter.contextId + '-' + parameter.jobName);
         request.setMethod('GET');
         request.setTimeout(20000);
-System.debug(LoggingLevel.ERROR, 'Sent request ' + parameter);
         new Http().send(request);
 
         updateNotificationRecord(parameter);
@@ -45,7 +43,6 @@ System.debug(LoggingLevel.ERROR, 'Sent request ' + parameter);
         notification.txt_JobName__c = parameter.jobName;
         notification.txt_Status__c = 'Success';
         upsert notification ext_JobId__c;
-System.debug(LoggingLevel.ERROR, 'Upserted ' + notification);
     }
 
 

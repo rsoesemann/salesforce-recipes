@@ -6,12 +6,12 @@ export default class NotificationsLog extends LightningElement {
     events = [];
 
     connectedCallback() {
-        subscribe('/event/NotificationReceived__e', -1, this.handleEvent).then(response => {
-            this.subscription = response;
-        });
-
         onError(error => {
             console.log('Received error from server: ', JSON.stringify(error));
+        });
+
+        subscribe('/event/NotificationReceived__e', -1, this.handleEvent).then(response => {
+            this.subscription = response;
         });
     }
 

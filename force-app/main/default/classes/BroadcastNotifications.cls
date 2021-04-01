@@ -20,7 +20,7 @@ public with sharing class BroadcastNotifications {
                                                     txt_JobName__c =  notification.txt_JobName__c,
                                                     txt_Status__c = notification.txt_Status__c) );
         }
-System.debug(LoggingLevel.ERROR, 'Publish ' + result);
+        
         EventBus.publish(result);
     }
 }
