@@ -2,10 +2,10 @@ public with sharing class MultiCommitCtrl {
 
     // PUBLIC
 
-    public void startFlow(){
+    public void startFlow() {
         try {
             new Flow.Interview.MultiCommit(new Map<String, Object>{
-                                                'contextId' => new Random().string(18)
+                                                'contextId' => getContextId()
                                             }).start();
         }
         catch (Exception e) {
@@ -48,6 +48,16 @@ public with sharing class MultiCommitCtrl {
         notification.txt_JobName__c = parameter.jobName;
         notification.txt_Status__c = 'Success';
         upsert notification ext_JobId__c;
+    }
+
+    private String getContextId() {
+        String result = ApexPages.currentPage() .getParameters().get('contextId');
+
+        if(String.isBlank(result)) {
+            result = new Random().string();
+        }
+
+        return result.abbreviate(18);
     }
 
 
