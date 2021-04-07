@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>Recipes</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <classAccesses>
         <apexClass>ActivateAccountCtrl</apexClass>
         <enabled>true</enabled>
@@ -18,8 +22,13 @@
     </classAccesses>
     <customMetadataTypeAccesses>
         <enabled>true</enabled>
-        <name>QualityGateType__mdt</name>
+        <name>TestType__mdt</name>
     </customMetadataTypeAccesses>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Test__c.txl_Payload__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Admin</label>
     <objectPermissions>
@@ -40,6 +49,15 @@
         <object>Notification__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Test__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <pageAccesses>
         <apexPage>activateAccountButton</apexPage>
         <enabled>true</enabled>
@@ -58,6 +76,10 @@
     </tabSettings>
     <tabSettings>
         <tab>Setup</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Test__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

@@ -12,6 +12,6 @@
     </values>
     <values>
         <field>UiComponent__c</field>
-        <value xsi:type="xsd:string">EditTestScript</value>
+        <value xsi:type="xsd:string">c:editScriptGate</value>
     </values>
 </CustomMetadata>
