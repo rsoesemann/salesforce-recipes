@@ -8,9 +8,5 @@
             const contextId = '{!contextId}';
             $Lightning.createComponent("c:notificationsLog", {contextId}, "notificationsLog");
         });
-
-        document.addEventListener("showToast", (event) => {
-            sforce.one.showToast(event.detail);
-        });
     </script>
 </apex:page>
