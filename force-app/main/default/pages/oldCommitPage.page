@@ -5,7 +5,8 @@
 
     <script>
         $Lightning.use("c:myApp", () => {
-            $Lightning.createComponent("c:notificationsLog", {}, "notificationsLog");
+            const contextId = '{!contextId}';
+            $Lightning.createComponent("c:notificationsLog", {contextId}, "notificationsLog");
         });
 
         document.addEventListener("showToast", (event) => {

@@ -1,12 +1,22 @@
-import { LightningElement, track } from "lwc";
+import { LightningElement, api } from "lwc";
 
 export default class NotificationsLog extends LightningElement {
+    @api
+    contextId;
 
     events = [];
 
-    handleMessage(event){
-        this.events.push( event.detail.payload.data.payload );
-        this.events = JSON.parse(JSON.stringify(this.events));
+    handleMessage(event) {
+        const payload = event.detail.payload.data.payload;
+
+        if(this.isRelevant(payload)) {
+            this.events.push(payload);
+            this.events = JSON.parse(JSON.stringify(this.events));
+        }
+    }
+
+    isRelevant(payload) {
+        return (payload.ext_JobId__c == this.contextId);
     }
 
     handleError(event){

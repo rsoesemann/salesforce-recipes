@@ -1,11 +1,26 @@
 public with sharing class MultiCommitCtrl {
 
+    public String contextId { get; private set; }
+
+
+
+    // CONSTRUCTOR
+
+    public MultiCommitCtrl() {
+        contextId = ApexPages.currentPage() .getParameters().get('contextId');
+
+        if(String.isBlank(contextId)) {
+            contextId = new Random().string(18);
+        }
+    }
+
+
     // PUBLIC
 
     public void startFlow() {
         try {
             new Flow.Interview.MultiCommit(new Map<String, Object>{
-                                                'contextId' => getContextId()
+                                                'contextId' => contextId
                                             }).start();
         }
         catch (Exception e) {
@@ -33,7 +48,7 @@ public with sharing class MultiCommitCtrl {
 
     private static void calloutBackend(BackendParameter parameter) {
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('http://slowwly.robertomurray.co.uk/delay/' + 10000 + '/url/' + parameter.contextId + '-' + parameter.jobName);
+        request.setEndpoint('http://slowwly.robertomurray.co.uk/delay/' + 10000 + '/url/http://www.google.com');
         request.setMethod('GET');
         request.setTimeout(20000);
         new Http().send(request);
@@ -48,16 +63,6 @@ public with sharing class MultiCommitCtrl {
         notification.txt_JobName__c = parameter.jobName;
         notification.txt_Status__c = 'Success';
         upsert notification ext_JobId__c;
-    }
-
-    private String getContextId() {
-        String result = ApexPages.currentPage() .getParameters().get('contextId');
-
-        if(String.isBlank(result)) {
-            result = new Random().string();
-        }
-
-        return result.abbreviate(18);
     }
 
 
