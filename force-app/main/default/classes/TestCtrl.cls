@@ -16,4 +16,28 @@ public with sharing class TestCtrl {
 
         return result;
     }
+
+
+    @AuraEnabled(cacheable=false)
+    public static String fetchConfiguration(Id recordId) {
+        String result = null;
+
+        try {
+            Test__c record = new TestsSelector().byId(new Set<Id>{ recordId })[0];
+            result = record.txl_Payload__c;
+        }
+        catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+
+        return result;
+    }
+
+    
+    @AuraEnabled(cacheable=false)
+    public static void storeConfiguration(Id recordId, String configuration) {
+        Test__c record = new Test__c(Id = recordId);
+        record.txl_Payload__c = configuration;
+        upsert record;
+    }
 }

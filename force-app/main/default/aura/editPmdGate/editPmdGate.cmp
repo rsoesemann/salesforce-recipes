@@ -1,9 +1,15 @@
-<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+<aura:component controller="TestCtrl" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="configuration" type="Object" />
+
+    <c:lax context="{!this}" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
     <fieldset class="slds-box slds-theme_default slds-container_small">
         <legend id="newexpenseform" class="slds-text-heading_small slds-p-vertical_medium">PMD Settings</legend>
 
         <form class="slds-form_stacked">
             <lightning:input required="true" type="file" label="Ruleset file" name="file" />
-        </form>
+            <lightning:button aura:id="submit" type="submit" label="Save" onclick="{! c.onSave }" />
+        </form> 
     </fieldset>
 </aura:component>

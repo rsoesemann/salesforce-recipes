@@ -3,7 +3,6 @@ public with sharing class MultiCommitCtrl {
     public String contextId { get; private set; }
 
 
-
     // CONSTRUCTOR
 
     public MultiCommitCtrl() {
@@ -18,14 +17,10 @@ public with sharing class MultiCommitCtrl {
     // PUBLIC
 
     public void startFlow() {
-        try {
-            new Flow.Interview.MultiCommit(new Map<String, Object>{
+        new Flow.Interview.MultiCommit(new Map<String, Object>{
                                                 'contextId' => contextId
-                                            }).start();
-        }
-        catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
+                                            })
+                                            .start();
     }
 
 
@@ -37,6 +32,7 @@ public with sharing class MultiCommitCtrl {
 
         return result;
     }
+
 
     @AuraEnabled(cacheable=true)
     public static String getSessionId() {
