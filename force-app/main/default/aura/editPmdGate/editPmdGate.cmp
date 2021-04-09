@@ -7,9 +7,11 @@
     <fieldset class="slds-box slds-theme_default slds-container_small">
         <legend id="newexpenseform" class="slds-text-heading_small slds-p-vertical_medium">PMD Settings</legend>
 
-        <form class="slds-form_stacked">
-            <lightning:input required="true" type="file" label="Ruleset file" name="file" />
-            <lightning:button aura:id="submit" type="submit" label="Save" onclick="{! c.onSave }" />
-        </form> 
+        <form aura:id="form" class="slds-form_stacked">
+            <lightning:input label="Ruleset Name" name="rule" value="{!v.configuration.rule}" />
+            <lightning:input type="file" label="Ruleset File" name="file" value="{!v.configuration.file}" />
+
+            <lightning:button aura:id="submit" type="submit" label="Save" onclick="{!c.save}" />
+        </form>
     </fieldset>
 </aura:component>
