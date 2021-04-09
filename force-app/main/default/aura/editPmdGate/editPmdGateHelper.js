@@ -1,6 +1,6 @@
 ({
     getConfiguration: function(cmp) {
-        const form = cmp.find("form").elements;
+        const form = cmp.find("form");
         return Array.from(form)
                     .filter(element => element.nodeName === "INPUT")
                     .map(this.toFormProperty);
