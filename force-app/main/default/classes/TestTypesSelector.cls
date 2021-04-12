@@ -10,7 +10,6 @@ public with sharing class TestTypesSelector extends fflib_SObjectSelector {
             TestType__mdt.Id,
             TestType__mdt.DeveloperName,
             TestType__mdt.Label,
-            TestType__mdt.RunOn__c,
             TestType__mdt.UiComponent__c
         };
     }
