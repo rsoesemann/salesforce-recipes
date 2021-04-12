@@ -20,6 +20,11 @@
         <default>false</default>
         <label>Clayton</label>
     </customValue>
+    <customValue>
+        <fullName>ux</fullName>
+        <default>false</default>
+        <label>Copado Ux Test</label>
+    </customValue>
     <masterLabel>Quality Gate Types</masterLabel>
     <sorted>false</sorted>
 </GlobalValueSet>

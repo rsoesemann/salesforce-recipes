@@ -8,6 +8,6 @@
     </values>
     <values>
         <field>UiComponent__c</field>
-        <value xsi:type="xsd:string">c:copadoUxTest</value>
+        <value xsi:type="xsd:string">c:editUxTest</value>
     </values>
 </CustomMetadata>

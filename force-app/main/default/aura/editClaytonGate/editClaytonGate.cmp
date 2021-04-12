@@ -1,11 +1,7 @@
 <aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
-    <fieldset class="slds-box slds-theme_default slds-container_small">
-        <legend id="newexpenseform" class="slds-text-heading_small slds-p-vertical_medium">Setup Clayton Run</legend>
-
-        <form class="slds-form_stacked">
-            <lightning:input type="url" label="Clayton Server" name="server" />
-            <lightning:input label="Accountname" name="account" />
-            <lightning:input type="password" label="Password" name="password" />
-        </form>
-    </fieldset>
+    <c:configurationEditor title="Setup Clayton Run">
+        <lightning:input type="url" label="Clayton Server" name="server"  value="{!v.configuration.server}" />
+        <lightning:input label="Accountname" name="account"  value="{!v.configuration.account}" />
+        <lightning:input type="password" label="Password" name="password"  value="{!v.configuration.password}" />
+    </c:configurationEditor>
 </aura:component>
