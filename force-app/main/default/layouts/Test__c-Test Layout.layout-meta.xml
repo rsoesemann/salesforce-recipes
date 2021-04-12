@@ -19,6 +19,10 @@
                 <behavior>Required</behavior>
                 <field>pkl_Status__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Execute__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

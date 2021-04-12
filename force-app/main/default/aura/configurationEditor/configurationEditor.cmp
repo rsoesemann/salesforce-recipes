@@ -1,6 +1,6 @@
 <aura:component controller="TestCtrl" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
-    <aura:attribute name="configuration" type="Object" />
     <aura:attribute name="title" type="String" />
+    <aura:attribute name="configuration" type="Object" />
     
     <!-- LAX -->
     <c:lax context="{!this}" />
