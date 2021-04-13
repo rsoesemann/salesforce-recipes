@@ -1,6 +1,8 @@
 {
   "orgName": "salesforce-recipes_DEV",
   "edition": "Developer",
+  "country": "US",
+  "language": "en_US",
   "features": [],
   "settings": {
     "lightningExperienceSettings": {
