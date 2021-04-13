@@ -156,7 +156,6 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <gender>Feminine</gender>
     <label>Notification</label>
     <nameField>
         <displayFormat>NTF-{0000}</displayFormat>

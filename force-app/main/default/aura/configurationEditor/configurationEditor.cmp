@@ -2,11 +2,13 @@
     <aura:attribute name="title" type="String" />
     <aura:attribute name="configuration" type="Object" />
     
+    <aura:method name="getConfiguration" action="{!c.getConfiguration}" ></aura:method>
+
     <!-- LAX -->
     <c:lax context="{!this}" />
 
     <!-- EVENTS -->
-    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.init}"/> -->
 
     <!-- MARKUP -->
     <fieldset class="slds-box slds-theme_default slds-container_small">

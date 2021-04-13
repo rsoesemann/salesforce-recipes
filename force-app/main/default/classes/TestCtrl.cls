@@ -34,10 +34,13 @@ public with sharing class TestCtrl {
     }
 
     
-    @AuraEnabled(cacheable=false)
+    @AuraEnabled
     public static void storeConfiguration(Id recordId, String configuration) {
+        System.debug('configuration: ' + configuration);
+        System.debug('recordId: ' + recordId);
         Test__c record = new Test__c(Id = recordId);
         record.txl_Payload__c = configuration;
-        upsert record;
+
+        update record;
     }
 }
