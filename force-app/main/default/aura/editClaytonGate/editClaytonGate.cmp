@@ -1,5 +1,5 @@
 <aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
-    <c:configurationEditor title="Setup Clayton Run">
+    <c:configurationEditor title="Setup Clayton Run" recordId="{!v.recordId}">
         <lightning:input type="url" label="Clayton Server" name="server"  value="{!v.configuration.server}" />
         <lightning:input label="Accountname" name="account"  value="{!v.configuration.account}" />
         <lightning:input type="password" label="Password" name="password"  value="{!v.configuration.password}" />

@@ -1,5 +1,5 @@
 <aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
-    <c:configurationEditor title="PMD Settings">
+    <c:configurationEditor title="PMD Settings" recordId="{!v.recordId}">
         <lightning:input label="Ruleset Name" name="rule" value="{!v.configuration.rule}" />
         <lightning:input type="file" label="Ruleset File" name="file" value="{!v.configuration.file}" />
     </c:configurationEditor>

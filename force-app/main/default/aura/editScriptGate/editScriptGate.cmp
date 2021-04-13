@@ -1,5 +1,5 @@
 <aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
-    <c:configurationEditor title="Manual Test Script">
+    <c:configurationEditor title="Manual Test Script" recordId="{!v.recordId}">
         <lightning:textarea required="true" label="Given" name="given"  value="{!v.configuration.given}" />
         <lightning:textarea required="true" label="When" name="when"  value="{!v.configuration.when}" />
         <lightning:textarea required="true" label="Then" name="then"  value="{!v.configuration.then}" />
