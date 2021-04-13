@@ -3,8 +3,8 @@
     <aura:handler name="init" value="{!this}" action="{!c.init}"/>
 
     <c:configurationEditor title="Setup Clayton Run"  recordId="{!v.recordId}" aura:id="editor">
-        <lightning:input type="url" label="Clayton Server" name="server"  value="{!v.configuration.server}" />
-        <lightning:input label="Accountname" name="account"  value="{!v.configuration.account}" />
-        <lightning:input type="password" label="Password" name="password"  value="{!v.configuration.password}" />
+        <lightning:input type="url" label="Clayton Server" name="server" value="{!v.configuration.server}" />
+        <lightning:input label="Accountname" name="account" value="{!v.configuration.account}" />
+        <lightning:input type="password" label="Password" name="password" value="{!v.configuration.password}" />
     </c:configurationEditor>
 </aura:component>

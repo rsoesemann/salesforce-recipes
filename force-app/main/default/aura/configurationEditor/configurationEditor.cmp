@@ -14,8 +14,7 @@
 
         <form aura:id="form" class="slds-form_stacked">
             {!v.body}
-
-            <lightning:button type="submit" label="Save" onclick="{!c.store}" />
+            <lightning:button type="submit" label="Save" onclick="{!c.save}" />
         </form>
     </fieldset>
 </aura:component>

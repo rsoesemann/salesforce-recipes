@@ -4,6 +4,6 @@
 
     <c:configurationEditor title="Quentinel QWeb Script" recordId="{!v.recordId}" aura:id="editor">
         <lightning:textarea required="true" label="Quentinel Pace Script" name="script"  value="{!v.configuration.script}" />
-        <lightning:button type="record" label="Record..." onclick="{!c.save}" />
+        <lightning:button type="record" label="Record..." />
     </c:configurationEditor>
 </aura:component>

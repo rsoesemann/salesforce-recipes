@@ -4,9 +4,14 @@
     },
 
     save: function (cmp, evt, hlp) {
+        evt.preventDefault();
+
         const configuration = hlp.getConfiguration(cmp);
 
         cmp.lax.enqueue("c.storeConfiguration", { recordId: cmp.get("v.recordId"), configuration: JSON.stringify(configuration) })
+            .then(() => {
+                $A.get('e.force:refreshView').fire();
+            })
             .catch((e) => {
                 cmp.find("toast").toastError(e);
             });

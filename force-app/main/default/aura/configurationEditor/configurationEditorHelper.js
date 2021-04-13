@@ -1,6 +1,8 @@
 ({
     getConfiguration: function(cmp) {
-        return cmp.find("form").find({instancesOf : "lightning:input"}).map(this.toFormProperty);
+        const result = cmp.find("form").find({instancesOf : "lightning:input"});
+        result.push(...cmp.find("form").find({instancesOf : "lightning:textarea"}) );
+        return result.map(this.toFormProperty);
     },
 
     toFormProperty: function(element, index) {

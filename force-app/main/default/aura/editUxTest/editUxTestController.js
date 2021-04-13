@@ -3,7 +3,12 @@
         cmp.find("editor")
             .getConfiguration()
             .then((configuration) => {
-                cmp.set("v.configuration", JSON.parse(configuration));
+                configuration = (configuration || "{}");
+                const asFields = JSON.parse(configuration).reduce((result, configuration) => {
+                    result[configuration.name] = configuration.value;
+                    return result
+                }, {});
+                cmp.set("v.configuration", asFields);
             });
     }
 });
