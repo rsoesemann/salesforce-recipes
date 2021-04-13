@@ -1,5 +1,5 @@
 <aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
-    <c:configurationEditor title="Apex Test Settings">
+    <c:configurationEditor title="Apex Test Settings" recordId="{!v.recordId}">
         <lightning:input required="true" type="percentage" label="Minimum Coverage %" name="coverage" value="{!v.configuration.coverage}" />
     </c:configurationEditor>
 </aura:component>
