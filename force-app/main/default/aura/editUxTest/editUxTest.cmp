@@ -1,5 +1,8 @@
 <aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
-    <c:configurationEditor title="Quentinel QWeb Script">
+    <aura:attribute name="configuration" type="Object" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <c:configurationEditor title="Quentinel QWeb Script" recordId="{!v.recordId}" aura:id="editor">
         <lightning:textarea required="true" label="Quentinel Pace Script" name="script"  value="{!v.configuration.script}" />
         <lightning:button type="record" label="Record..." onclick="{!c.save}" />
     </c:configurationEditor>

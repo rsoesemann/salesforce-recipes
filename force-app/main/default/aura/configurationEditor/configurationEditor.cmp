@@ -5,13 +5,8 @@
     
     <aura:method name="getConfiguration" action="{!c.getConfiguration}" ></aura:method>
 
-    <!-- LAX -->
     <c:lax context="{!this}" />
 
-    <!-- EVENTS -->
-    <!-- <aura:handler name="init" value="{!this}" action="{!c.init}"/> -->
-
-    <!-- Markup -->
     <c:resultToast aura:id="toast" />
 
     <fieldset class="slds-box slds-theme_default slds-container_small">
@@ -20,7 +15,7 @@
         <form aura:id="form" class="slds-form_stacked">
             {!v.body}
 
-            <lightning:button type="submit" label="Save" onclick="{!c.save}" />
+            <lightning:button type="submit" label="Save" onclick="{!c.store}" />
         </form>
     </fieldset>
 </aura:component>

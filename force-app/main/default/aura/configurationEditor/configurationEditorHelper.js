@@ -1,10 +1,5 @@
 ({
     getConfiguration: function(cmp) {
-        // const form = cmp.find("form").find({instancesOf : "lightning:input"});
-        // return Array.from(form)
-        //             .filter(element => element.nodeName === "INPUT")
-        //             .map(this.toFormProperty);
-
         return cmp.find("form").find({instancesOf : "lightning:input"}).map(this.toFormProperty);
     },
 
