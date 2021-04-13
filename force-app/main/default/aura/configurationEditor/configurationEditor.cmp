@@ -8,7 +8,9 @@
     <!-- EVENTS -->
     <aura:handler name="init" value="{!this}" action="{!c.init}"/>
 
-    <!-- MARKUP -->
+    <!-- Markup -->
+    <c:resultToast aura:id="toast" />
+
     <fieldset class="slds-box slds-theme_default slds-container_small">
         <legend class="slds-text-heading_small slds-p-vertical_medium">{!v.title}</legend>
 
