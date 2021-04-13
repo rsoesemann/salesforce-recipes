@@ -7,10 +7,6 @@
         <value xsi:type="xsd:string">Flow</value>
     </values>
     <values>
-        <field>RunOn__c</field>
-        <value xsi:type="xsd:string">User Story</value>
-    </values>
-    <values>
         <field>UiComponent__c</field>
         <value xsi:type="xsd:string">c:editScriptGate</value>
     </values>

@@ -7,10 +7,6 @@
         <value xsi:type="xsd:string">Copado Function</value>
     </values>
     <values>
-        <field>RunOn__c</field>
-        <value xsi:type="xsd:string">User Story</value>
-    </values>
-    <values>
         <field>UiComponent__c</field>
         <value xsi:type="xsd:string">c:apexTestUi</value>
     </values>
