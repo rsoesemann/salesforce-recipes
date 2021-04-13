@@ -27,6 +27,9 @@ public with sharing class ActivateAccounts {
     // PUBLIC
 
     public void execute() {
-        throw new ApplicationException('If you nicely see this in the UI then everything is fine.');
+        new Notification()
+                .target(accounts[0].Id)
+                .with(accounts.size())
+                .send('Activation of {0} Accounts was started.');
     }
 }
