@@ -2,8 +2,8 @@
 Documentation     	Copado Core Regression Tests
 Library           	QWeb
 
-Resource          	copado.keywords.robot
-Resource          	copado.variables.robot
+Resource          	keywords.robot
+Resource          	variables.robot
 
 # Suite Setup       Setup
 Suite Teardown    	Teardown

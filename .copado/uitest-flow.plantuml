@@ -1,0 +1,44 @@
+@startuml name qweb happypath
+autonumber
+skinparam roundCorner 10
+hide footbox
+
+actor user as "User"
+
+box "SF App"
+    database story as "UserStory__c"
+    database test as "Test__c"
+    database result as "Result__c"
+    participant runfunc as "QWeb\nFunction"
+    participant manageFunc as "Manage Robot\nFunction"
+    participant code as "Apex/Flow"
+    participant Editor
+end box
+
+box "Backend GCP"
+   boundary RunQweb as "Run QWeb Function"
+   boundary ManageQWeb as "Manage QWeb"
+end box
+
+box "Git"
+    participant robots as ".robot Files"
+end box
+
+participant env as "Current Environment"
+
+== Create UI Test ==
+user --> test : create(type:UI)
+test --> Apex : trigger
+Apex --> robots : check / create
+user --> Editor : Author script
+
+== Run UI Test ==
+
+user --> story : runAllTests()
+story --> runfunc : trigger
+runfunc --> RunQweb : invoke
+RunQweb --> robots : read
+RunQWeb --> env : run
+RunQWeb --> result : update
+
+@enduml

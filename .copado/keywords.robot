@@ -24,5 +24,3 @@ Login
 Logout
     ClickText    View Profile    timeout=5
     ClickText    Log out
-
-
