@@ -1,44 +1,57 @@
-@startuml name qweb happypath
-autonumber
+@startuml
+
+title "MVP scope of UI Testing in Copado"
+
 skinparam roundCorner 10
 hide footbox
 
-actor user as "User"
+actor user as "QE Engineer"
 
-box "SF App"
+box "Local Machine"
+    participant cli as "Copado CLI"
+    participant vs as "VSCode"
+end box
+
+box "Salesforce"
     database story as "UserStory__c"
     database test as "Test__c"
     database result as "Result__c"
-    participant runfunc as "QWeb\nFunction"
-    participant manageFunc as "Manage Robot\nFunction"
+    participant runfunc as "Function__c"
     participant code as "Apex/Flow"
-    participant Editor
 end box
 
-box "Backend GCP"
+box "Backend "
    boundary RunQweb as "Run QWeb Function"
-   boundary ManageQWeb as "Manage QWeb"
 end box
 
-box "Git"
-    participant robots as ".robot Files"
-end box
+participant env as "US Environment"
 
-participant env as "Current Environment"
+== 1) Author UI Test ==
+autonumber
+user --> vs : author script
+user --> cli : attach script to US
+cli  --> test : create test 
+cli --> test : store script in LTxt
 
-== Create UI Test ==
-user --> test : create(type:UI)
-test --> Apex : trigger
-Apex --> robots : check / create
-user --> Editor : Author script
+== 2) Run UI Test from SF ==
+autonumber
+user --> test : execute()
+test --> code : trigger
+code --> result : create(pending)
+code --> runfunc : invoke
+runfunc --> RunQweb : delegate(script, authurl)
+RunQweb --> env : authorize
+RunQweb --> env : robot qweb
+RunQweb --> result : update
 
-== Run UI Test ==
-
-user --> story : runAllTests()
-story --> runfunc : trigger
-runfunc --> RunQweb : invoke
-RunQweb --> robots : read
-RunQWeb --> env : run
-RunQWeb --> result : update
+== 3) Run UI Test from CLI ==
+autonumber
+user --> cli : run function
+cli --> result : create(pending)
+cli --> runfunc : invoke
+runfunc --> RunQweb : delegate(script, authurl)
+RunQweb --> env : authorize
+RunQweb --> env : robot qweb
+RunQweb --> result : update
 
 @enduml
