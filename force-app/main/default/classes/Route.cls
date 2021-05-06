@@ -22,7 +22,7 @@ public with sharing class Route {
     public void now() {
         for(Event__e event : events) {
             for(Command command : commands) {
-                if(command.applies(event)) {
+                if(command.matches(event)) {
                     command.execute(event);
                 }
             }
@@ -33,7 +33,7 @@ public with sharing class Route {
     // INNER
 
     public interface Command {
-        Boolean applies(Event__e event);
+        Boolean matches(Event__e event);
         void execute(Event__e event);
     }
 }

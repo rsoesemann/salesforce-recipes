@@ -17,7 +17,7 @@ public with sharing class DoThisOnEvent implements Route.Command {
 
     // PUBLIC
 
-    public Boolean applies(Event__e event) {
+    public Boolean matches(Event__e event) {
         return (event.Publisher__c == publisher 
                     && event.Topic__c.startsWith(topic));
     }
