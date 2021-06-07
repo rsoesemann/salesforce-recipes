@@ -1,0 +1,49 @@
+@startuml
+title Use Cases for new generic Copado Event
+
+skinparam roundCorner 10
+hide footbox
+
+box "Salesforce"
+    participant custom as "Custom Logic" <<Apex/Flow/LWC>>
+    database data as "Copado Object" <<SObject>>
+    participant generator as "Event\nGenerator"
+    database notification as "Notification__c"
+end box
+
+box "Backend"
+   boundary backend as "Backend\nJob"
+   boundary function as "Copado\nFunction"
+   boundary proxy as "Webhook\nProxy"
+end box
+
+boundary external as "3rd Party\nSystem"
+
+== Data_Change_Event__e - signal that records have changed ==
+data <-- data : gets modified
+data --> generator : trigger calls
+generator --> custom : Data_Change_Event__e
+generator --> external : Data_Change_Event__e
+
+== Event__e - Flows handle Webhooks==
+external --> proxy : Webhook notification
+proxy --> custom : send Event__e(type=Webhook)
+custom --> custom : Custom Handling
+
+== Event__e - Backend notifies SF that Result is ready==
+custom --> backend : delegate work
+backend --> backend : long-running
+custom <-- backend : send Event__e(type=Result)
+custom <-- custom : Custom Handling
+
+== Event__e - Translate Notification change into event==
+notification <-- backend : create/modify
+notification --> custom : trigger sends Event__e
+
+== MC_Result__e - Reserved for Copado Functions ==
+custom --> function : delegate work
+function --> function : long-running
+hub <-- function : send Event__e(type=Result)
+custom <-- hub : call
+
+@enduml

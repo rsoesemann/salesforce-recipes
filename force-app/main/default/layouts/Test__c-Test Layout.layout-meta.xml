@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <excludeButtons>ChangeOwnerOne</excludeButtons>
-    <excludeButtons>ChangeRecordType</excludeButtons>
-    <excludeButtons>Clone</excludeButtons>
-    <excludeButtons>Delete</excludeButtons>
-    <excludeButtons>IsotopeSubscription</excludeButtons>
-    <excludeButtons>PrintableView</excludeButtons>
-    <excludeButtons>Share</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -22,14 +15,6 @@
                 <behavior>Required</behavior>
                 <field>AcceptanceCriteria__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>pkl_Status__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Execute__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -37,8 +22,8 @@
                 <field>Type__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>LastModifiedById</field>
+                <behavior>Required</behavior>
+                <field>pkl_Status__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -62,31 +47,13 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
-    <platformActionList>
-        <actionListContext>Record</actionListContext>
-        <platformActionListItems>
-            <actionName>Test__c.Execute</actionName>
-            <actionType>QuickAction</actionType>
-            <sortOrder>1</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Delete</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>2</sortOrder>
-        </platformActionListItems>
-        <platformActionListItems>
-            <actionName>Edit</actionName>
-            <actionType>StandardButton</actionType>
-            <sortOrder>0</sortOrder>
-        </platformActionListItems>
-    </platformActionList>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h1X000002LjgK</masterLabel>
+        <masterLabel>00h1X0000026ui4</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
