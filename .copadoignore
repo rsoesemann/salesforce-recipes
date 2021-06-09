@@ -1,0 +1,4 @@
+# List files or directories below to ignore them when deploying with Copado
+
+# LWC Jest
+**/__tests__/**

@@ -2,7 +2,7 @@ public with sharing class BroadcastNotifications {
     
     private List<Notification__c> notifications;
 
-
+    
     // CONSTRUCTORS
 
     public BroadcastNotifications(List<Notification__c> notifications) {
