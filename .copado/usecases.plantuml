@@ -1,0 +1,42 @@
+@startuml
+title Charlie Squad Features
+
+skinparam roundCorner 10
+
+actor user as User
+
+rectangle StaticCodeAnalysis {
+    (Setup Rule) as setupRule
+    (Scan Story) as scaOnStory
+    (Scan Org) as scaOnOrg
+    (Create Quality Gate) as scaAsGate
+
+    (Using PMD) as pmd
+    (Using CodeScan) as codescan
+
+    user --> pmd
+    user --> codescan
+    pmd --> setupRule
+    pmd --> scaOnStory
+    pmd --> scaOnOrg
+    pmd --> scaAsGate
+    codescan --> setupRule
+    codescan --> scaOnStory
+    codescan --> scaOnOrg
+    codescan --> scaAsGate
+}
+
+rectangle ApexTests {
+
+}
+
+rectangle PullRequests {
+    user --> Open
+    user --> Merge
+    user --> Close
+    user --> Approve
+    user --> Unapproved
+    user --> Comment
+}
+
+@enduml
