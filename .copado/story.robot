@@ -6,7 +6,7 @@ Suite Teardown          End Suite
 
 *** Test Cases ***
 Already Commited User Story is rejected
-    [Tags]  US-23523 UserStory Commit
+    [Tags]  US-23523 TE-453245234 
     [Documentation] fghgh
     
     # Setup  

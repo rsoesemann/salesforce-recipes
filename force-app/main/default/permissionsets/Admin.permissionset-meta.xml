@@ -20,10 +20,6 @@
         <apexClass>SetupPageCtrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <customMetadataTypeAccesses>
-        <enabled>true</enabled>
-        <name>TestType__mdt</name>
-    </customMetadataTypeAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>Test__c.Execute__c</field>

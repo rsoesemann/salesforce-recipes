@@ -4,18 +4,27 @@ Suite Teardown          EndSuite
 
 *** Test Cases ***
 
-Already Commited User Story is rejected
-    [Tags]  UserStory Commit Exceptions
+Admin successfully deletes User
     
     # Setup
-    ${story} CreateStory 
-    SubmitStory ${story}
-    CommitStory ${story} 
-
+    AppState ...
 
     # Exercise
-    CommitStory ${story}
+    ClickText         Edit Team Name
+    WriteText         Update
+    ClickText         Save
 
+    # Verify
+    VerifyText Commit failed
+Non-Admin fails to delete User
+    
+    # Setup
+    AppState ...
+
+    # Exercise
+    ClickText         Edit Team Name
+    WriteText         Update
+    ClickText         Save
 
     # Verify
     VerifyText Commit failed
