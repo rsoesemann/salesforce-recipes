@@ -8,7 +8,7 @@ private class MetadataSchema_Test {
     private static void showsOnlyTopLevelTypes() {
 
         // Setup
-        populateCache();
+        initCache();
 
 
         // Exercise
@@ -26,7 +26,7 @@ private class MetadataSchema_Test {
     private static void properties() {
 
         // Setup
-        populateCache();
+        initCache();
 
 
         // Exercise
@@ -43,7 +43,7 @@ private class MetadataSchema_Test {
     private static void isCachedOnSecondLoad() {
 
         // Setup
-        populateCache();
+        initCache();
 
 
         // Exercise
@@ -59,9 +59,10 @@ private class MetadataSchema_Test {
 
     // HELPER
 
-    private static void populateCache() {
-        Test.setMock(WebServiceMock.class, new MdApiMock());
-
+    private static void initCache() {
+        Test.setMock(WebServiceMock.class, new MdApiMock()
+                                                .with('Profile')
+                                                .with('SecuritySettings'));
         Datetime before = Datetime.now();
         new MetadataSchema();
         noCacheDuration = elapsedSecsSince(before);
@@ -74,9 +75,26 @@ private class MetadataSchema_Test {
 
 
     public class MdApiMock implements WebServiceMock {
+        
+        private MetadataService.describeMetadataResponse_element element;
+
+        private MdApiMock() {
+            element = new MetadataService.describeMetadataResponse_element();
+            element.result = new MetadataService.DescribeMetadataResult();
+            element.result.metadataObjects = new List<MetadataService.DescribeMetadataObject>();
+        }
+
+        private MdApiMock with(String xmlName) {
+            MetadataService.DescribeMetadataObject type = new MetadataService.DescribeMetadataObject();
+            type.xmlName = xmlName;
+            element.result.metadataObjects.add(type);
+            return this;
+        }
+
         public void doInvoke(Object stub, Object request, Map<String, Object> response, String endpoint,
                             String soapAction, String requestName, String responseNS, String responseName, String responseType) {
-            response.put('response_x', '<describeMetadataResponse><result><metadataObjects><xmlName>Profile</xmlName></metadataObjects><metadataObjects><xmlName>SecuritySettings</xmlName></metadataObjects></result></describeMetadataResponse>');
+            
+            response.put('response_x', response.put('response_x', element));
         }
     }
 }
