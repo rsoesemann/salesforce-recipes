@@ -1,7 +1,6 @@
 public with sharing class MetadataSchema {
 
     private Map<String, List<Property>> schema = new Map<String, List<Property>>();
-    private static final Set<String> TYPE_NODES = new Set<String>{ 'simpleType', 'complexType' };
 
 
     // CONSTRUCTOR
@@ -60,11 +59,11 @@ public with sharing class MetadataSchema {
 
         while(reader.hasNext()) {
             if(reader.getEventType() == XmlTag.START_ELEMENT) {
-                if(TYPE_NODES.contains( reader.getLocalName() )) {
+                if(reader.getLocalName() == 'complexType') {
                     type = reader.getAttributeValue(null, 'name');
                     schema.put(type, new List<Property>());
                 }
-                else if('element' == reader.getLocalName()) {
+                else if(reader.getLocalName() == 'element') {
                     schema.get(type).add(new Property(reader));
                 }
             }
