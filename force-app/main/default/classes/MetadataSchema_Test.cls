@@ -5,7 +5,7 @@ private class MetadataSchema_Test {
 
 
     @IsTest
-    private static void types() {
+    private static void showsOnlyTopLevelTypes() {
 
         // Setup
         populateCache();
@@ -18,6 +18,7 @@ private class MetadataSchema_Test {
         // Verify
         System.assert(types.contains('Profile'));
         System.assert(types.contains('SecuritySettings'));
+        System.assertEquals(false, types.contains('ProfileApplicationVisibility'));
     }
 
 
@@ -59,6 +60,8 @@ private class MetadataSchema_Test {
     // HELPER
 
     private static void populateCache() {
+        Test.setMock(WebServiceMock.class, new MdApiMock());
+
         Datetime before = Datetime.now();
         new MetadataSchema();
         noCacheDuration = elapsedSecsSince(before);
@@ -67,5 +70,13 @@ private class MetadataSchema_Test {
 
     private static Integer elapsedSecsSince(Datetime start) {
         return Integer.valueOf((System.now().getTime() - start.getTime()) / 1000);
+    }
+
+
+    public class MdApiMock implements WebServiceMock {
+        public void doInvoke(Object stub, Object request, Map<String, Object> response, String endpoint,
+                            String soapAction, String requestName, String responseNS, String responseName, String responseType) {
+            response.put('response_x', '<describeMetadataResponse><result><metadataObjects><xmlName>Profile</xmlName></metadataObjects><metadataObjects><xmlName>SecuritySettings</xmlName></metadataObjects></result></describeMetadataResponse>');
+        }
     }
 }

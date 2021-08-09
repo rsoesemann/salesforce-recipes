@@ -1,22 +1,17 @@
-public with sharing class Metadataschema {
+public with sharing class MetadataSchema {
 
     private static final String PARTITION = 'mdApiTypeAndProperties';
-    private static Map<String, List<Property>> schema = new Map<String, List<Property>>();
+
+    private Map<String, List<Property>> schema = new Map<String, List<Property>>();
 
 
     // CONSTRUCTOR
 
-    public Metadataschema() {
-        if(Cache.Org.contains(PARTITION)) {
-            schema = (Map<String, List<Property>>) Cache.Org.get(PARTITION);
-        }
-        else {
-            parse( metadataWsdl() );
-            Cache.Org.put(PARTITION, schema);
-        }
+    public MetadataSchema() {
+        schema = (Cache.Org.contains(PARTITION)) ? cachedSchema() : calculatedSchema( metadataWsdl() );
     }
 
-    
+
     // PUBLIC
 
     public List<String> types() {
@@ -31,12 +26,25 @@ public with sharing class Metadataschema {
 
     // PRIVATE
 
-    private XmlStreamReader metadataWsdl() {
-        XmlStreamReader result;
+    private Map<String, List<Property>> cachedSchema() {
+        return (Map<String, List<Property>>) Cache.Org.get(PARTITION);
+    }
+
+
+    private Map<String, List<Property>> calculatedSchema(Blob wsdl) {
+        Map<String, List<Property>> result = parse(wsdl);
+        result.keySet().retainAll(topLevelTypes(wsdl));
+        Cache.Org.put(PARTITION, result);
+
+        return result;
+    }
+
+
+    private Blob metadataWsdl() {
+        Blob result;
 
         if(Test.isRunningTest()) {
-            StaticResource localWsdl = [SELECT Body FROM StaticResource WHERE Name = 'metadata_wsdl' LIMIT 1];
-            result = new XmlStreamReader(localWsdl.Body.toString());
+            result = [SELECT Body FROM StaticResource WHERE Name = 'metadata_wsdl' LIMIT 1].Body;
         }
         else {
             HttpRequest request = new HttpRequest();
@@ -45,30 +53,61 @@ public with sharing class Metadataschema {
             request.setHeader('Cookie','sid=' + UserInfo.getSessionId());
             request.setHeader('Content-Type', 'application/xml');
             
-            HttpResponse response = new Http().send(request);
-            result = response.getXmlStreamReader();
+            result = new Http().send(request).getBodyAsBlob();
         }
         
         return result;
     }
 
 
-    private void parse(XmlStreamReader reader) {
-        String type;
+    private Map<String, List<Property>> parse(Blob wsdl) {
+        Map<String, List<Property>> result = new Map<String, List<Property>>();
 
+        XmlStreamReader reader = new XmlStreamReader(wsdl.toString());
+        String type;
+        
         while(reader.hasNext()) {
             if(reader.getEventType() == XmlTag.START_ELEMENT) {
                 if(reader.getLocalName() == 'complexType') {
                     type = reader.getAttributeValue(null, 'name');
-                    schema.put(type, new List<Property>());
+                    result.put(type, new List<Property>());
                 }
                 else if(reader.getLocalName() == 'element') {
-                    schema.get(type).add(new Property(reader));
+                    result.get(type).add(new Property(reader));
                 }
             }
 
             reader.next();
         }
+
+        return result;
+    }
+
+
+    private Set<String> topLevelTypes(Blob wsdl) {
+        Set<String> result = new Set<String>();
+
+        for(MetadataService.DescribeMetadataObject type : mdApi()
+                                                            .describeMetadata( apiVersion(wsdl) )
+                                                            .metadataObjects) {
+            result.add(type.xmlName);
+        }
+
+        return result;
+    }
+
+
+    private MetadataService.MetadataPort mdApi() {
+        MetadataService.MetadataPort result = new MetadataService.MetadataPort();
+        result.SessionHeader = new MetadataService.SessionHeader_element();
+        result.SessionHeader.sessionId = UserInfo.getSessionId();
+        return result;
+    }
+
+
+    private Double apiVersion(Blob wsdl) {
+        String result = wsdl.toString().substringBetween('salesforce.com/services/Soap/m/', '"/>');
+        return Double.valueOf(result);
     }
 
 
