@@ -1,19 +1,18 @@
-public with sharing class MetadataSchema {
+public with sharing class Metadataschema {
 
-    private Map<String, List<Property>> schema = new Map<String, List<Property>>();
+    private static final String PARTITION = 'mdApiTypeAndProperties';
+    private static Map<String, List<Property>> schema = new Map<String, List<Property>>();
 
 
     // CONSTRUCTOR
 
-    public MetadataSchema() {
-        String partition = 'mdApiTypeAndProperties';
-
-        if(Cache.Org.contains(partition)) {
-            schema = (Map<String, List<Property>>) Cache.Org.get(partition);
+    public Metadataschema() {
+        if(Cache.Org.contains(PARTITION)) {
+            schema = (Map<String, List<Property>>) Cache.Org.get(PARTITION);
         }
         else {
             parse( metadataWsdl() );
-            Cache.Org.put(partition, schema);
+            Cache.Org.put(PARTITION, schema);
         }
     }
 
