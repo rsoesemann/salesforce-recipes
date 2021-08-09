@@ -2,23 +2,6 @@
 private class MetadataSchema_Test {
 
     private static Integer noCacheDuration = null;
-   
-    @IsTest
-    private static void isCachedOnSecondLoad() {
-
-        // Setup
-        populateCache();
-
-
-        // Exercise
-        Datetime before = Datetime.now();
-        new MetadataSchema();
-        Integer withCacheDuration = elapsedSecsSince(before);
-
-
-        // Verify
-        System.assert(noCacheDuration > withCacheDuration, 'No Cache: ' + noCacheDuration + ' <-> ' + 'With Cache: ' + withCacheDuration);
-    }
 
 
     @IsTest
@@ -34,6 +17,7 @@ private class MetadataSchema_Test {
 
         // Verify
         System.assert(types.contains('Profile'));
+        System.assert(types.contains('SecuritySettings'));
     }
 
 
@@ -51,6 +35,24 @@ private class MetadataSchema_Test {
         // Verify
         System.assert(properties.contains(new MetadataSchema.Property('loginIpRanges')));
         System.assert(properties.contains(new MetadataSchema.Property('userPermissions')));
+    }
+   
+
+    @IsTest
+    private static void isCachedOnSecondLoad() {
+
+        // Setup
+        populateCache();
+
+
+        // Exercise
+        Datetime before = Datetime.now();
+        new MetadataSchema();
+        Integer withCacheDuration = elapsedSecsSince(before);
+
+
+        // Verify
+        System.assert(noCacheDuration > withCacheDuration, 'No Cache: ' + noCacheDuration + ' <-> ' + 'With Cache: ' + withCacheDuration);
     }
 
 
