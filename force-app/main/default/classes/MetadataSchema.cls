@@ -34,27 +34,42 @@ public with sharing class MetadataSchema {
     // PRIVATE
 
     private XmlStreamReader metadataWsdl() {
-        StaticResource resource = [SELECT Body FROM StaticResource 
-                                   WHERE Name = 'metadata_wsdl' LIMIT 1];
-        return new XmlStreamReader(resource.Body.toString());
+        XmlStreamReader result;
+
+        if(Test.isRunningTest()) {
+            StaticResource localWsdl = [SELECT Body FROM StaticResource WHERE Name = 'metadata_wsdl' LIMIT 1];
+            result = new XmlStreamReader(localWsdl.Body.toString());
+        }
+        else {
+            HttpRequest request = new HttpRequest();
+            request.setEndpoint(URL.getOrgDomainUrl().toExternalForm() + '/services/wsdl/metadata');
+            request.setMethod('GET');
+            request.setHeader('Cookie','sid=' + UserInfo.getSessionId());
+            request.setHeader('Content-Type', 'application/xml');
+            
+            HttpResponse response = new Http().send(request);
+            result = response.getXmlStreamReader();
+        }
+        
+        return result;
     }
 
 
-    private void parse(XmlStreamReader wsdl) {
+    private void parse(XmlStreamReader reader) {
         String type;
 
-        while(wsdl.hasNext()) {
-            if(wsdl.getEventType() == XmlTag.START_ELEMENT) {
-                if(TYPE_NODES.contains( wsdl.getLocalName() )) {
-                    type = wsdl.getAttributeValue(null, 'name');
+        while(reader.hasNext()) {
+            if(reader.getEventType() == XmlTag.START_ELEMENT) {
+                if(TYPE_NODES.contains( reader.getLocalName() )) {
+                    type = reader.getAttributeValue(null, 'name');
                     schema.put(type, new List<Property>());
                 }
-                else if('element' == wsdl.getLocalName()) {
-                    schema.get(type).add(new Property(wsdl));
+                else if('element' == reader.getLocalName()) {
+                    schema.get(type).add(new Property(reader));
                 }
             }
 
-            wsdl.next();
+            reader.next();
         }
     }
 
@@ -66,8 +81,25 @@ public with sharing class MetadataSchema {
         public String type;
 
         public Property(System.XmlStreamReader reader) {
-            name = reader.getAttributeValue(null, 'name');
+            this(reader.getAttributeValue(null, 'name'));
             type = reader.getAttributeValue(null, 'type');
+        }
+
+        public Property(String name) {
+            this.name = name;
+        }
+
+        public Boolean equals(Object obj) {
+            if (obj instanceof Property) {
+                Property other = (Property) obj;
+                return (other.name == name);
+            }
+
+            return false;
+        }
+
+        public Integer hashCode() {
+            return (31 * name.hashCode()) ^ type.hashCode();
         }
     }
 }
