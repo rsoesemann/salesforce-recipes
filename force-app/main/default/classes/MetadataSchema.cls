@@ -33,7 +33,8 @@ public with sharing class MetadataSchema {
 
     private Map<String, List<Property>> calculatedSchema(Blob wsdl) {
         Map<String, List<Property>> result = parse(wsdl);
-        result.keySet().retainAll(topLevelTypes(wsdl));
+        result.keySet().retainAll( topLevelTypes(wsdl) );
+
         Cache.Org.put(PARTITION, result);
 
         return result;
@@ -105,9 +106,9 @@ public with sharing class MetadataSchema {
     }
 
 
-    private Double apiVersion(Blob wsdl) {
+    private Integer apiVersion(Blob wsdl) {
         String result = wsdl.toString().substringBetween('salesforce.com/services/Soap/m/', '"/>');
-        return Double.valueOf(result);
+        return Integer.valueOf(result);
     }
 
 

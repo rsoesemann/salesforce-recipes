@@ -2,16 +2,15 @@
 private class MetadataSchema_Test {
 
     private static Integer noCacheDuration = null;
+    static {
+        initCache();
+    }
 
 
     @IsTest
     private static void showsOnlyTopLevelTypes() {
 
-        // Setup
-        initCache();
-
-
-        // Exercise
+        // Setup & Exercise
         List<String> types = new MetadataSchema().types();
 
 
@@ -25,11 +24,7 @@ private class MetadataSchema_Test {
     @IsTest
     private static void properties() {
 
-        // Setup
-        initCache();
-
-
-        // Exercise
+        // Setup & Exercise
         List<MetadataSchema.Property> properties = new MetadataSchema().properties('Profile');
 
 
@@ -42,11 +37,7 @@ private class MetadataSchema_Test {
     @IsTest
     private static void isCachedOnSecondLoad() {
 
-        // Setup
-        initCache();
-
-
-        // Exercise
+        // Setup & Exercise
         Datetime before = Datetime.now();
         new MetadataSchema();
         Integer withCacheDuration = elapsedSecsSince(before);
@@ -93,8 +84,7 @@ private class MetadataSchema_Test {
 
         public void doInvoke(Object stub, Object request, Map<String, Object> response, String endpoint,
                             String soapAction, String requestName, String responseNS, String responseName, String responseType) {
-            
-            response.put('response_x', response.put('response_x', element));
+            response.put('response_x', element);
         }
     }
 }
