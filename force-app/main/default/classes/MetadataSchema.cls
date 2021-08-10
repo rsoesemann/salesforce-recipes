@@ -21,10 +21,10 @@ public with sharing class MetadataSchema {
     public List<Option> options(Option current) {
         List<Option> result = new List<Option>();
 
-        String xpath = complexType() + '[@name=' + current.type + ']';
+        String complexType = complexType() + '[@name=' + current.type + ']';
 
-        for(Dom.XmlNode node : find(new List<String>{ xpath + '/xsd:sequence/xsd:element', 
-                                                      xpath + '/xsd:extension/xsd:sequence/xsd:element' })) {
+        for(Dom.XmlNode node : find(new List<String>{ complexType + '/xsd:sequence/xsd:element', 
+                                                      complexType + '/xsd:extension/xsd:sequence/xsd:element' })) {
             result.add( new Option(node) );
         }
 
@@ -90,7 +90,7 @@ public with sharing class MetadataSchema {
                 Option other = (Option) obj;
                 return (other.name == name && other.type == type);
             }
-            
+
             return false;
         }
         
