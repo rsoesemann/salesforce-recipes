@@ -2,14 +2,7 @@ public with sharing class MetadataSchema {
 
     private static final Blob WSDL = loadWsdl('MetadataWsdlBlob');
 
-    private XPath schema;
-
-
-    // CONSTRUCTOR
-
-    public MetadataSchema() {
-        schema = new XPath(WSDL.toString());
-    }
+    private XPath schema = new XPath(WSDL.toString());
 
 
     // PUBLIC
@@ -60,10 +53,7 @@ public with sharing class MetadataSchema {
     private static Blob loadWsdl(String cachePartition) {
         Blob result;
 
-        if(Cache.Org.contains(cachePartition)) {
-            result = (Blob) Cache.Org.get(cachePartition);
-        }
-        else if(Test.isRunningTest()) {
+        if(Test.isRunningTest()) {
             result = [SELECT Body FROM StaticResource WHERE Name = 'metadata_wsdl' LIMIT 1].Body;
         }
         else {
@@ -86,11 +76,26 @@ public with sharing class MetadataSchema {
         public String name;
         public String type;
 
-        public Option() {}
+        public Option(String name) {
+            this.name = name;
+        }
 
         public Option(Dom.XmlNode node) {
-            this.name = node.getAttributeValue('name', null);
+            this( node.getAttributeValue('name', null) );
             this.type = node.getAttributeValue('type', null);
+        }
+
+        public Boolean equals(Object obj) {
+            if(obj instanceof Option) {
+                Option other = (Option) obj;
+                return (other.name == name && other.type == type);
+            }
+            
+            return false;
+        }
+        
+        public Integer hashCode() {
+            return (31 * name.hashCode()) ^ type.hashCode();
         }
     }
 }
