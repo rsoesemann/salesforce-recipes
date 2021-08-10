@@ -11,7 +11,9 @@ public with sharing class MetadataSchema {
         List<Option> result = new List<Option>();
 
         for(Dom.XmlNode node : schema.find(complexType() + '/xsd:complexContent/xsd:extension[@base="tns:Metadata"]')) {
-            result.add( new Option(node.getParent().getParent()) );
+            Option option = new Option(node.getParent().getParent());
+            result.add(option);
+System.debug(LoggingLevel.ERROR, option);
         }
 
         return result;
@@ -25,7 +27,9 @@ public with sharing class MetadataSchema {
 
         for(Dom.XmlNode node : find(new List<String>{ complexType + '/xsd:sequence/xsd:element', 
                                                       complexType + '/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element' })) {
-            result.add( new Option(node) );
+            Option option = new Option(node);
+            result.add(option);
+System.debug(LoggingLevel.ERROR, option);
         }
 
         return result;

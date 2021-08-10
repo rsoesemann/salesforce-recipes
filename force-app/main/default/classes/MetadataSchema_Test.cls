@@ -9,31 +9,35 @@ private class MetadataSchema_Test {
 
 
         // Verify
-        System.assert(results.contains( option('AIApplication') ));
-        System.assert(results.contains( option('Profile') ));
-        System.assert(results.contains( option('SecuritySettings') ));
+        System.assert(contains(results, 'AIApplication'));
+        System.assert(contains(results, 'Profile'));
+        System.assert(contains(results, 'SecuritySettings'));
         
-        System.assert(!results.contains( option('AIApplicationStatus') ));
-        System.assert(!results.contains( option('ProfileApplicationVisibility') ));
+        System.assert(!contains(results, 'AIApplicationStatus'));
+        System.assert(!contains(results, 'ProfileApplicationVisibility'));
     }
 
 
     @IsTest
     private static void childOptions() {
 
-        // Setup & Exercise
-        List<MetadataSchema.Option> results = new MetadataSchema().options( option('Profile') );
+        // Setup
+        MetadataSchema.Option profile = new MetadataSchema.Option('Profile');
+
+
+        // Exercise
+        List<MetadataSchema.Option> results = new MetadataSchema().options(profile);
 
 
         // Verify
-        System.assert(results.contains( option('loginIpRanges') ));
-        System.assert(results.contains( option('userPermissions') ));
+        System.assert(contains(results, 'loginIpRanges'));
+        System.assert(contains(results, 'userPermissions'));
     }
 
 
     // HELPER
 
-    private static MetadataSchema.Option option(String name) {
-        return new MetadataSchema.Option(name);
+    private static Boolean contains(List<MetadataSchema.Option> results, String name) {
+        return new Set<MetadataSchema.Option>(results).contains(new MetadataSchema.Option(name));
     }
 }
