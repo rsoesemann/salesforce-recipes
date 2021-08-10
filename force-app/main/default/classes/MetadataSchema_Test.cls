@@ -5,14 +5,16 @@ private class MetadataSchema_Test {
     private static void topLevelOptions() {
 
         // Setup & Exercise
-        List<MetadataSchema.Option> options = new MetadataSchema().options();
+        List<MetadataSchema.Option> results = new MetadataSchema().options();
 
 
         // Verify
-        System.assert(options.contains( new MetadataSchema.Option('Profile') ));
-        System.assert(options.contains( new MetadataSchema.Option('SecuritySettings')) );
+        System.assert(results.contains( option('AIApplication') ));
+        System.assert(results.contains( option('Profile') ));
+        System.assert(results.contains( option('SecuritySettings') ));
         
-        System.assertEquals(false, options.contains( new MetadataSchema.Option('ProfileApplicationVisibility')) );
+        System.assert(!results.contains( option('AIApplicationStatus') ));
+        System.assert(!results.contains( option('ProfileApplicationVisibility') ));
     }
 
 
@@ -20,11 +22,18 @@ private class MetadataSchema_Test {
     private static void childOptions() {
 
         // Setup & Exercise
-        List<MetadataSchema.Option> options = new MetadataSchema().options( new MetadataSchema.Option('Profile') );
+        List<MetadataSchema.Option> results = new MetadataSchema().options( option('Profile') );
 
 
         // Verify
-        System.assert(options.contains( new MetadataSchema.Option('loginIpRanges') ));
-        System.assert(options.contains( new MetadataSchema.Option('userPermissions') ));
+        System.assert(results.contains( option('loginIpRanges') ));
+        System.assert(results.contains( option('userPermissions') ));
+    }
+
+
+    // HELPER
+
+    private static MetadataSchema.Option option(String name) {
+        return new MetadataSchema.Option(name);
     }
 }

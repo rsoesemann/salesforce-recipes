@@ -24,7 +24,7 @@ public with sharing class MetadataSchema {
         String complexType = complexType() + '[@name=' + current.type + ']';
 
         for(Dom.XmlNode node : find(new List<String>{ complexType + '/xsd:sequence/xsd:element', 
-                                                      complexType + '/xsd:extension/xsd:sequence/xsd:element' })) {
+                                                      complexType + '/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element' })) {
             result.add( new Option(node) );
         }
 
@@ -65,7 +65,7 @@ public with sharing class MetadataSchema {
             
             result = new Http().send(request).getBodyAsBlob();
         }
-        
+
         return result;
     }
 
@@ -78,6 +78,7 @@ public with sharing class MetadataSchema {
 
         public Option(String name) {
             this.name = name;
+            this.type = name;
         }
 
         public Option(Dom.XmlNode node) {
