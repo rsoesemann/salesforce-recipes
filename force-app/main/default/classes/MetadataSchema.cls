@@ -1,8 +1,8 @@
 public with sharing class MetadataSchema {
 
-    private static final Blob WSDL = loadWsdl('MetadataWsdlBlob');
+    private static final String WSDL = metadataWsdl().toString();
 
-    private XPath schema = new XPath(WSDL.toString());
+    private XPath schema = new XPath(WSDL);
 
 
     // PUBLIC
@@ -11,9 +11,7 @@ public with sharing class MetadataSchema {
         List<Option> result = new List<Option>();
 
         for(Dom.XmlNode node : schema.find(complexType() + '/xsd:complexContent/xsd:extension[@base="tns:Metadata"]')) {
-            Option option = new Option(node.getParent().getParent());
-            result.add(option);
-System.debug(LoggingLevel.ERROR, option);
+            result.add( new Option(node.getParent().getParent()) );
         }
 
         return result;
@@ -23,13 +21,11 @@ System.debug(LoggingLevel.ERROR, option);
     public List<Option> options(Option current) {
         List<Option> result = new List<Option>();
 
-        String complexType = complexType() + '[@name=' + current.type + ']';
+        String complexType = complexType(current);
 
         for(Dom.XmlNode node : find(new List<String>{ complexType + '/xsd:sequence/xsd:element', 
                                                       complexType + '/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element' })) {
-            Option option = new Option(node);
-            result.add(option);
-System.debug(LoggingLevel.ERROR, option);
+            result.add( new Option(node) );
         }
 
         return result;
@@ -54,23 +50,20 @@ System.debug(LoggingLevel.ERROR, option);
     }
 
 
-    private static Blob loadWsdl(String cachePartition) {
-        Blob result;
+    private String complexType(Option option) {
+        String name = (option.type != null) ? option.type : option.name;
+        return complexType() + '[@name=' + name + ']';
+    }
 
-        if(Test.isRunningTest()) {
-            result = [SELECT Body FROM StaticResource WHERE Name = 'metadata_wsdl' LIMIT 1].Body;
-        }
-        else {
-            HttpRequest request = new HttpRequest();
-            request.setEndpoint(URL.getOrgDomainUrl().toExternalForm() + '/services/wsdl/metadata');
-            request.setMethod('GET');
-            request.setHeader('Cookie','sid=' + UserInfo.getSessionId());
-            request.setHeader('Content-Type', 'application/xml');
-            
-            result = new Http().send(request).getBodyAsBlob();
-        }
 
-        return result;
+    private static Blob metadataWsdl() {
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(URL.getOrgDomainUrl().toExternalForm() + '/services/wsdl/metadata');
+        request.setMethod('GET');
+        request.setHeader('Cookie','sid=' + UserInfo.getSessionId());
+        request.setHeader('Content-Type', 'application/xml');
+        
+        return new Http().send(request).getBodyAsBlob();
     }
 
 
@@ -80,13 +73,10 @@ System.debug(LoggingLevel.ERROR, option);
         public String name;
         public String type;
 
-        public Option(String name) {
-            this.name = name;
-            this.type = name;
-        }
+        public Option() {}
 
         public Option(Dom.XmlNode node) {
-            this( node.getAttributeValue('name', null) );
+            this.name = node.getAttributeValue('name', null);
             this.type = node.getAttributeValue('type', null);
         }
 
@@ -100,7 +90,9 @@ System.debug(LoggingLevel.ERROR, option);
         }
         
         public Integer hashCode() {
-            return (31 * name.hashCode()) ^ type.hashCode();
+            Integer nameHash = (name == null) ? 0 : name.hashCode();
+            Integer typeHash = (type == null) ? 0 : type.hashCode();
+            return (31 * nameHash) ^ typeHash;
         }
     }
 }

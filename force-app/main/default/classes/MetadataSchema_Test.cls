@@ -1,6 +1,11 @@
 @IsTest
 private class MetadataSchema_Test {
 
+    static {
+        Test.setMock(HttpCalloutMock.class, new MockWsdl());
+    }
+
+
     @IsTest
     private static void topLevelOptions() {
 
@@ -9,12 +14,12 @@ private class MetadataSchema_Test {
 
 
         // Verify
-        System.assert(contains(results, 'AIApplication'));
-        System.assert(contains(results, 'Profile'));
-        System.assert(contains(results, 'SecuritySettings'));
+        System.assert(results.contains(option('AIApplication')));
+        System.assert(results.contains(option('Profile')));
+        System.assert(results.contains(option('SecuritySettings')));
         
-        System.assert(!contains(results, 'AIApplicationStatus'));
-        System.assert(!contains(results, 'ProfileApplicationVisibility'));
+        System.assert(!results.contains(option('AIApplicationStatus')));
+        System.assert(!results.contains(option('ProfileApplicationVisibility')));
     }
 
 
@@ -22,7 +27,7 @@ private class MetadataSchema_Test {
     private static void childOptions() {
 
         // Setup
-        MetadataSchema.Option profile = new MetadataSchema.Option('Profile');
+        MetadataSchema.Option profile = option('Profile');
 
 
         // Exercise
@@ -30,14 +35,33 @@ private class MetadataSchema_Test {
 
 
         // Verify
-        System.assert(contains(results, 'loginIpRanges'));
-        System.assert(contains(results, 'userPermissions'));
+        System.assert(results.contains(option('loginIpRanges', 'ProfileLoginIpRange')));
+        System.assert(results.contains(option('userPermissions', 'ProfileUserPermission')));
     }
 
 
     // HELPER
 
-    private static Boolean contains(List<MetadataSchema.Option> results, String name) {
-        return new Set<MetadataSchema.Option>(results).contains(new MetadataSchema.Option(name));
+    private static MetadataSchema.Option option(String name){
+        return option(name, null);
+    }
+
+    private static MetadataSchema.Option option(String name, String type){
+        MetadataSchema.Option result = new MetadataSchema.Option();
+        result.name = name;
+        result.type = type;
+        return result;
+    }
+
+
+    public class MockWsdl implements HttpCalloutMock {
+        public HTTPResponse respond(HTTPRequest request) {
+            HTTPResponse result = new HTTPResponse();
+            
+            Blob localWsdl = [SELECT Body FROM StaticResource WHERE Name = 'metadata_wsdl' LIMIT 1].Body;
+            result.setBodyAsBlob(localWsdl);
+            
+            return result;
+        }
     }
 }
