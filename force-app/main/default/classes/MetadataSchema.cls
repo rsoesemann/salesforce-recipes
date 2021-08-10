@@ -3,40 +3,36 @@ public with sharing class MetadataSchema {
     private static final Blob WSDL = loadWsdl('MetadataWsdlBlob');
 
     private XPath schema;
-    private Set<String> subtypes = new Set<String>();
 
 
     // CONSTRUCTOR
 
     public MetadataSchema() {
         schema = new XPath(WSDL.toString());
-        subtypes = subtypes();
     }
 
 
     // PUBLIC
 
-    public List<Option> nextOptions(Option current) {
+    public List<Option> options() {
         List<Option> result = new List<Option>();
-System.debug(LoggingLevel.ERROR, metadataType(current.type) + '/xsd:sequence/xsd:element');
 
-        for(Dom.XmlNode node : schema.find( metadataType(current.type) + '/xsd:sequence/xsd:element')) {
-            result.add( new Option(node) );
+        for(Dom.XmlNode node : schema.find(complexType() + '/xsd:complexContent/xsd:extension[@base="tns:Metadata"]')) {
+            result.add( new Option(node.getParent().getParent()) );
         }
 
         return result;
     }
 
 
-    public List<Option> nextOptions() {
+    public List<Option> options(Option current) {
         List<Option> result = new List<Option>();
 
-        for(Dom.XmlNode node : schema.find( metadataTypes() )) {
-            node = node.getParent().getParent();
+        String xpath = complexType() + '[@name=' + current.type + ']';
 
-            if(isRootType(node)) {
-                result.add( new Option(node) );
-            }
+        for(Dom.XmlNode node : find(new List<String>{ xpath + '/xsd:sequence/xsd:element', 
+                                                      xpath + '/xsd:extension/xsd:sequence/xsd:element' })) {
+            result.add( new Option(node) );
         }
 
         return result;
@@ -45,20 +41,19 @@ System.debug(LoggingLevel.ERROR, metadataType(current.type) + '/xsd:sequence/xsd
 
     // PRIVATE
 
-    private Boolean isRootType(Dom.XmlNode typeNode) {
-        String typeName = typeNode.getAttributeValue('name', null);
-        return (!subtypes.contains(typeName));
-    }
+    private List<Dom.XmlNode> find(List<String> xpaths) {
+        List<Dom.XmlNode> result = new List<Dom.XmlNode>();
 
-
-    private Set<String> subtypes() {
-        Set<String> result = new Set<String>();
-
-        for(Dom.XmlNode node : schema.find(metadataTypes() + '/xsd:sequence/xsd:element')) {
-            result.add(node.getAttributeValue('type', null));
+        for(String xpath : xpaths) {
+            result.addAll( schema.find(xpath) );
         }
 
         return result;
+    }
+
+
+    private String complexType() {
+        return '/definitions/types/xsd:schema/xsd:complexType';
     }
 
 
@@ -82,19 +77,6 @@ System.debug(LoggingLevel.ERROR, metadataType(current.type) + '/xsd:sequence/xsd
         }
         
         return result;
-    }
-
-
-    private String metadataType(String name) {
-        String template = '/definitions/types/xsd:schema/xsd:complexType__/xsd:complexContent/xsd:extension[@base="tns:Metadata"]';
-        String fragment = (name == null) ? '' : '[@name=' + name + ']';
-
-        return template.replace('__', fragment);
-    }
-
-
-    private String metadataTypes() {
-        return metadataType(null);   
     }
 
 
