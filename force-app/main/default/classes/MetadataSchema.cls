@@ -1,8 +1,6 @@
 public with sharing class MetadataSchema {
 
-    private static final String WSDL = metadataWsdl().toString();
-
-    private XPath schema = new XPath(WSDL);
+    private static final XPath SCHEMA = new XPath( metadataWsdl().toString() );
 
 
     // PUBLIC
@@ -10,11 +8,11 @@ public with sharing class MetadataSchema {
     public List<Option> options() {
         List<Option> result = new List<Option>();
 
-        for(Dom.XmlNode node : schema.find(complexType() + '/xsd:complexContent/xsd:extension[@base="tns:Metadata"]')) {
+        for(Dom.XmlNode node : SCHEMA.find(complexType() + '/xsd:complexContent/xsd:extension[@base="tns:Metadata"]')) {
             result.add( new Option(node.getParent().getParent()) );
         }
 
-        return result;
+        return sorted(result);
     }
 
 
@@ -23,30 +21,27 @@ public with sharing class MetadataSchema {
 
         String complexType = complexType(current);
 
-        for(Dom.XmlNode node : find(new List<String>{ complexType + '/xsd:sequence/xsd:element', 
-                                                      complexType + '/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element' })) {
-            result.add( new Option(node) );
+        for(String xpath : new List<String>{ complexType + '/xsd:sequence/xsd:element', 
+                                             complexType + '/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element' }) {
+            for(Dom.XmlNode node : SCHEMA.find(xpath)) {
+                result.add( new Option(node) );
+            }
         }
 
-        return result;
+        return sorted(result);
     }
 
 
     // PRIVATE
 
-    private List<Dom.XmlNode> find(List<String> xpaths) {
-        List<Dom.XmlNode> result = new List<Dom.XmlNode>();
-
-        for(String xpath : xpaths) {
-            result.addAll( schema.find(xpath) );
-        }
-
-        return result;
+    private List<Option> sorted(List<Option> options) {
+        options.sort();
+        return options;
     }
 
 
     private String complexType() {
-        return '/definitions/types/xsd:schema/xsd:complexType';
+        return '/definitions/types/xsd:SCHEMA/xsd:complexType';
     }
 
 
@@ -69,7 +64,7 @@ public with sharing class MetadataSchema {
 
     // INNER
 
-    public class Option {
+    public class Option implements Comparable {
         public String name;
         public String type;
 
@@ -93,6 +88,12 @@ public with sharing class MetadataSchema {
             Integer nameHash = (name == null) ? 0 : name.hashCode();
             Integer typeHash = (type == null) ? 0 : type.hashCode();
             return (31 * nameHash) ^ typeHash;
+        }
+        
+        
+        public Integer compareTo(Object obj) {
+            String otherName = ((Option) obj).name;
+            return name.compareTo(otherName);        
         }
     }
 }

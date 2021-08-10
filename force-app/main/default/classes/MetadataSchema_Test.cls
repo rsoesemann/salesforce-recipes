@@ -27,16 +27,20 @@ private class MetadataSchema_Test {
     private static void childOptions() {
 
         // Setup
-        MetadataSchema.Option profile = option('Profile');
+        MetadataSchema.Option customObject = option('CustomObject');
+        MetadataSchema.Option fields = option('fields', 'CustomField');
+        MetadataSchema.Option filter = option('lookupFilter', 'LookupFilter');
+        MetadataSchema.Option item = option('filterItems', 'FilterItem');
+        MetadataSchema.Option value = option('value', 'string');
+
+        MetadataSchema schema = new MetadataSchema();
 
 
-        // Exercise
-        List<MetadataSchema.Option> results = new MetadataSchema().options(profile);
-
-
-        // Verify
-        System.assert(results.contains(option('loginIpRanges', 'ProfileLoginIpRange')));
-        System.assert(results.contains(option('userPermissions', 'ProfileUserPermission')));
+        // Exercise & Verify
+        System.assert(schema.options(customObject).contains(fields));
+        System.assert(schema.options(fields).contains(filter));
+        System.assert(schema.options(filter).contains(item));
+        System.assert(schema.options(item).contains(value));
     }
 
 
