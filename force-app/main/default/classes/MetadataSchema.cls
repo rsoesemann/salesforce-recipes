@@ -1,50 +1,74 @@
 public with sharing class MetadataSchema {
 
-    private static final String PARTITION = 'mdApiTypeAndProperties';
+    private static final Blob WSDL = loadWsdl('MetadataWsdlBlob');
 
-    private Map<String, List<Property>> schema = new Map<String, List<Property>>();
+    private XPath schema;
+    private Set<String> subtypes = new Set<String>();
 
 
     // CONSTRUCTOR
 
     public MetadataSchema() {
-        schema = (Cache.Org.contains(PARTITION)) ? cachedSchema() : calculatedSchema( metadataWsdl() );
+        schema = new XPath(WSDL.toString());
+        subtypes = subtypes();
     }
 
 
     // PUBLIC
 
-    public List<String> types() {
-        return new List<String>(schema.keySet());
-    }
+    public List<Option> nextOptions(Option current) {
+        List<Option> result = new List<Option>();
+System.debug(LoggingLevel.ERROR, metadataType(current.type) + '/xsd:sequence/xsd:element');
 
-
-    public List<Property> properties(String type) {
-        return schema.get(type);
-    }
-
-
-    // PRIVATE
-
-    private Map<String, List<Property>> cachedSchema() {
-        return (Map<String, List<Property>>) Cache.Org.get(PARTITION);
-    }
-
-
-    private Map<String, List<Property>> calculatedSchema(Blob wsdl) {
-        Map<String, List<Property>> result = parse(wsdl);
-        result.keySet().retainAll( topLevelTypes(wsdl) );
-
-        Cache.Org.put(PARTITION, result);
+        for(Dom.XmlNode node : schema.find( metadataType(current.type) + '/xsd:sequence/xsd:element')) {
+            result.add( new Option(node) );
+        }
 
         return result;
     }
 
 
-    private Blob metadataWsdl() {
+    public List<Option> nextOptions() {
+        List<Option> result = new List<Option>();
+
+        for(Dom.XmlNode node : schema.find( metadataTypes() )) {
+            node = node.getParent().getParent();
+
+            if(isRootType(node)) {
+                result.add( new Option(node) );
+            }
+        }
+
+        return result;
+    }
+
+
+    // PRIVATE
+
+    private Boolean isRootType(Dom.XmlNode typeNode) {
+        String typeName = typeNode.getAttributeValue('name', null);
+        return (!subtypes.contains(typeName));
+    }
+
+
+    private Set<String> subtypes() {
+        Set<String> result = new Set<String>();
+
+        for(Dom.XmlNode node : schema.find(metadataTypes() + '/xsd:sequence/xsd:element')) {
+            result.add(node.getAttributeValue('type', null));
+        }
+
+        return result;
+    }
+
+
+    private static Blob loadWsdl(String cachePartition) {
         Blob result;
 
-        if(Test.isRunningTest()) {
+        if(Cache.Org.contains(cachePartition)) {
+            result = (Blob) Cache.Org.get(cachePartition);
+        }
+        else if(Test.isRunningTest()) {
             result = [SELECT Body FROM StaticResource WHERE Name = 'metadata_wsdl' LIMIT 1].Body;
         }
         else {
@@ -61,83 +85,30 @@ public with sharing class MetadataSchema {
     }
 
 
-    private Map<String, List<Property>> parse(Blob wsdl) {
-        Map<String, List<Property>> result = new Map<String, List<Property>>();
+    private String metadataType(String name) {
+        String template = '/definitions/types/xsd:schema/xsd:complexType__/xsd:complexContent/xsd:extension[@base="tns:Metadata"]';
+        String fragment = (name == null) ? '' : '[@name=' + name + ']';
 
-        XmlStreamReader reader = new XmlStreamReader(wsdl.toString());
-        String type;
-        
-        while(reader.hasNext()) {
-            if(reader.getEventType() == XmlTag.START_ELEMENT) {
-                if(reader.getLocalName() == 'complexType') {
-                    type = reader.getAttributeValue(null, 'name');
-                    result.put(type, new List<Property>());
-                }
-                else if(reader.getLocalName() == 'element') {
-                    result.get(type).add(new Property(reader));
-                }
-            }
-
-            reader.next();
-        }
-
-        return result;
+        return template.replace('__', fragment);
     }
 
 
-    private Set<String> topLevelTypes(Blob wsdl) {
-        Set<String> result = new Set<String>();
-
-        for(MetadataService.DescribeMetadataObject type : mdApi()
-                                                            .describeMetadata( apiVersion(wsdl) )
-                                                            .metadataObjects) {
-            result.add(type.xmlName);
-        }
-
-        return result;
-    }
-
-
-    private MetadataService.MetadataPort mdApi() {
-        MetadataService.MetadataPort result = new MetadataService.MetadataPort();
-        result.SessionHeader = new MetadataService.SessionHeader_element();
-        result.SessionHeader.sessionId = UserInfo.getSessionId();
-        return result;
-    }
-
-
-    private Integer apiVersion(Blob wsdl) {
-        String result = wsdl.toString().substringBetween('salesforce.com/services/Soap/m/', '"/>');
-        return Integer.valueOf(result);
+    private String metadataTypes() {
+        return metadataType(null);   
     }
 
 
     // INNER
 
-    public class Property {
+    public class Option {
         public String name;
         public String type;
 
-        public Property(System.XmlStreamReader reader) {
-            this(reader.getAttributeValue(null, 'name'));
-            type = reader.getAttributeValue(null, 'type');
-        }
+        public Option() {}
 
-        public Property(String name) {
-            this.name = name;
-        }
-
-        public Boolean equals(Object obj) {
-            if (obj instanceof Property) {
-                Property other = (Property) obj;
-                return (other.name == name);
-            }
-
-            return false;
-        }
-
-        public Integer hashCode() {
-            return (31 * name.hashCode()) ^ type.hashCode();
+        public Option(Dom.XmlNode node) {
+            this.name = node.getAttributeValue('name', null);
+            this.type = node.getAttributeValue('type', null);
         }
     }
 }

@@ -12333,7 +12333,7 @@ Copyright 2006-2021 Salesforce.com, inc. All Rights Reserved
      <xsd:element name="ignoreDefaultEmailTemplateSubject" type="xsd:boolean"/>
     </xsd:sequence>
    </xsd:complexType>
-   <xsd:simpleType name="QuickActionLabel">
+   <xsd:simpleType name="   ">
     <xsd:restriction base="xsd:string">
      <xsd:enumeration value="LogACall"/>
      <xsd:enumeration value="LogANote"/>

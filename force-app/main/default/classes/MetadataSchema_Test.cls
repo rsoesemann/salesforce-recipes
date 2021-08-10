@@ -17,6 +17,7 @@ private class MetadataSchema_Test {
         // Verify
         System.assert(types.contains('Profile'));
         System.assert(types.contains('SecuritySettings'));
+        
         System.assertEquals(false, types.contains('ProfileApplicationVisibility'));
     }
 
@@ -69,6 +70,11 @@ private class MetadataSchema_Test {
         
         private MetadataService.describeMetadataResponse_element element;
 
+        public void doInvoke(Object stub, Object request, Map<String, Object> response, String endpoint,
+                            String soapAction, String requestName, String responseNS, String responseName, String responseType) {
+            response.put('response_x', element);
+        }
+
         private MdApiMock() {
             element = new MetadataService.describeMetadataResponse_element();
             element.result = new MetadataService.DescribeMetadataResult();
@@ -80,11 +86,6 @@ private class MetadataSchema_Test {
             type.xmlName = xmlName;
             element.result.metadataObjects.add(type);
             return this;
-        }
-
-        public void doInvoke(Object stub, Object request, Map<String, Object> response, String endpoint,
-                            String soapAction, String requestName, String responseNS, String responseName, String responseType) {
-            response.put('response_x', element);
         }
     }
 }
