@@ -41,7 +41,7 @@ public with sharing class MetadataSchema {
 
 
     private String complexType() {
-        return '/definitions/types/xsd:SCHEMA/xsd:complexType';
+        return '/definitions/types/xsd:schema/xsd:complexType';
     }
 
 
