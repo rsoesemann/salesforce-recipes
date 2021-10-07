@@ -35,7 +35,7 @@ echo "Create remote site setting"
 sfdx shane:remotesite:create -n Slowwly -u http://slowwly.robertomurray.co.uk
 
 echo "Running apex tests"
-execute sfdx force:apex:test:run -l RunLocalTests -w 30
+execute sfdx force:apex:test:run -l RunLocalTests --synchronous
 
 if [ -f "package.json" ]; then
   echo "Running jest tests"

@@ -8,9 +8,7 @@ public with sharing class MetadataSchema {
     public List<Option> options() {
         List<Option> result = new List<Option>();
 
-        for(Dom.XmlNode node : SCHEMA.find(complexType() + '/xsd:complexContent/xsd:extension[@base="tns:Metadata"]')) {
-            result.add( new Option(node.getParent().getParent()) );
-        }
+        addRootNodeOptions(result);
 
         return sorted(result);
     }
@@ -19,20 +17,55 @@ public with sharing class MetadataSchema {
     public List<Option> options(Option current) {
         List<Option> result = new List<Option>();
 
-        String complexType = complexType(current);
-
-        for(String xpath : new List<String>{ complexType + '/xsd:sequence/xsd:element', 
-                                             complexType + '/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element' }) {
-            for(Dom.XmlNode node : SCHEMA.find(xpath)) {
-                result.add( new Option(node) );
-            }
-        }
+        addNodeOptions(current, result);
+        addValueOptions(current, result);
 
         return sorted(result);
     }
 
 
     // PRIVATE
+
+    private void addRootNodeOptions(List<Option> result) {
+        for(Dom.XmlNode node : SCHEMA.find(complexType() + '/xsd:complexContent/xsd:extension[@base="tns:Metadata"]')) {
+            node = node.getParent().getParent();
+
+            Option option = new Option();
+            option.name = node.getAttributeValue('name', null);
+            option.type = node.getAttributeValue('type', null);
+            result.add(option);
+        }
+    }
+
+
+    private void addNodeOptions(Option current, List<Option> result) {
+        String name = (current.type != null) ? current.type : current.name;
+        String complexType = complexType() + '[@name=' + name + ']';
+
+        for(String xpath : new List<String>{ complexType + '/xsd:sequence/xsd:element', 
+                                             complexType + '/xsd:complexContent/xsd:extension/xsd:sequence/xsd:element' }) {
+            for(Dom.XmlNode node : SCHEMA.find(xpath)) {
+                Option option = new Option();
+                option.name = node.getAttributeValue('name', null);
+                option.type = node.getAttributeValue('type', null);
+                result.add(option);
+            }
+        }
+    }
+
+
+    private void addValueOptions(Option current, List<Option> result) {
+        String name = (current.type != null) ? current.type : current.name;
+
+        for(Dom.XmlNode node : SCHEMA.find('/definitions/types/xsd:schema/xsd:simpleType[@name=' + name + ']/xsd:restriction/xsd:enumeration')) {
+            Option option = new Option();
+            option.name = node.getParent().getParent().getAttributeValue('name', null);
+            option.type = node.getParent().getAttributeValue('base', null);
+            option.value = node.getAttributeValue('value', null);
+            result.add(option);
+        }
+    }
+
 
     private List<Option> sorted(List<Option> options) {
         options.sort();
@@ -41,13 +74,7 @@ public with sharing class MetadataSchema {
 
 
     private String complexType() {
-        return '/definitions/types/xsd:SCHEMA/xsd:complexType';
-    }
-
-
-    private String complexType(Option option) {
-        String name = (option.type != null) ? option.type : option.name;
-        return complexType() + '[@name=' + name + ']';
+        return '/definitions/types/xsd:schema/xsd:complexType';
     }
 
 
@@ -65,31 +92,25 @@ public with sharing class MetadataSchema {
     // INNER
 
     public class Option implements Comparable {
+
         public String name;
         public String type;
+        public Object value;
 
         public Option() {}
-
-        public Option(Dom.XmlNode node) {
-            this.name = node.getAttributeValue('name', null);
-            this.type = node.getAttributeValue('type', null);
-        }
 
         public Boolean equals(Object obj) {
             if(obj instanceof Option) {
                 Option other = (Option) obj;
-                return (other.name == name && other.type == type);
+                return (other.name == name && other.type == type && other.value == value);
             }
 
             return false;
         }
         
         public Integer hashCode() {
-            Integer nameHash = (name == null) ? 0 : name.hashCode();
-            Integer typeHash = (type == null) ? 0 : type.hashCode();
-            return (31 * nameHash) ^ typeHash;
+            return System.hashCode(this);
         }
-        
         
         public Integer compareTo(Object obj) {
             String otherName = ((Option) obj).name;
