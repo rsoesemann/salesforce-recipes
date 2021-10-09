@@ -1,44 +1,76 @@
-public with sharing class UniversalFeatureToggle {
+public class UniversalFeatureToggle {
 
-    private Integer value = 0;
+    private static final String FMA_FIELD = 'UniversalFeatureToggle__c';
+    private Integer fmaValue;
+    
+
+    // CONSTRUCTOR
+
+    public UniversalFeatureToggle() {
+        fmaValue = (Test.isRunningTest()) ? 0 : FeatureManagement.checkPackageIntegerValue(FMA_FIELD);
+    }
 
 
     // PUBLIC
 
-    public UniversalFeatureToggle enable(List<Integer> featureNumbers) {
-        for(Integer feature : featureNumbers) {
-            value = value | bitmask(feature);
-        }
+    public UniversalFeatureToggle enable(Feature feature) {
+        fmaValue |= 1 << feature.ordinal();
+        persist();
 
         return this;
     }
 
 
-    public UniversalFeatureToggle enable(Integer featureNumber) {
-        return enable(new List<Integer>{ featureNumber });
-    }
+    public UniversalFeatureToggle disable(Feature feature) {
+        fmaValue &= ~(1 << feature.ordinal());
+        persist();
 
-    
-    // PUBLIC
-
-    public Boolean isEnabled(Integer featureNumber) {
-        Integer bitmask = bitmask(featureNumber - 1);
-        return (bitmask  == (value & bitmask));
+        return this;
     }
 
 
-    public Integer asInteger() {
-        return value;
+    public UniversalFeatureToggle toggle(Feature feature) {
+        fmaValue ^= 1 << feature.ordinal();
+        persist();
 
+        return this;
     }
+
+
+    public Boolean isEnabled(Feature feature) {
+        return 0 != (fmaValue & 1 << feature.ordinal());
+    }
+
+
+    public Boolean isDisabled(Feature feature) {
+        return !isEnabled(feature);
+    }
+
 
     // PRIVATE
 
-    @TestVisible
-    private Integer bitmask(Integer featureNumber) {
-        Double result =  Math.pow(Double.valueOf(2), Double.valueOf(featureNumber - 1));
-        return Integer.valueOf(result);
+    private void persist() {
+        if( !Test.isRunningTest()) {
+            FeatureManagement.setPackageIntegerValue(FMA_FIELD, fmaValue);
+        }
+    }
+
+
+    // INNER
+
+    public enum Feature { 
+        TEST_APEX_WITHOUT_V2, // Add User Story Autoname for details
+        UNUSED_2, // Add User Story Autoname for details
+        UNUSED_3, // Add User Story Autoname for details
+        UNUSED_4, // Add User Story Autoname for details
+        UNUSED_5, // Add User Story Autoname for details
+        UNUSED_6, // Add User Story Autoname for details
+        UNUSED_7, // Add User Story Autoname for details
+        UNUSED_8, // Add User Story Autoname for details
+        UNUSED_9, // Add User Story Autoname for details
+        UNUSED_10, // Add User Story Autoname for details
+        //.. MAXIMUM 30 VALUES (Positive 32bit Integer)
+        UNUSED_29, // Add User Story Autoname for details
+        UNUSED_30 // Add User Story Autoname for details
     }
 }
-
-

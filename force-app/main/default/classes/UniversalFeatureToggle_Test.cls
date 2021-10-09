@@ -1,48 +1,36 @@
 @IsTest
 private class UniversalFeatureToggle_Test {
 
-    @IsTest
-    private static void asBitmask() {
-
-        // Setup
-        UniversalFeatureToggle toggle = new UniversalFeatureToggle();
-
-        // Exercise & Verify
-        System.assertEquals(1, toggle.bitmask(1));
-        System.assertEquals(2, toggle.bitmask(2));
-        System.assertEquals(4, toggle.bitmask(3));
-        System.assertEquals(8, toggle.bitmask(4));
-        System.assertEquals(1073741824, toggle.bitmask(31));
-    }
+    private static UniversalFeatureToggle.Feature feature = UniversalFeatureToggle.Feature.UNUSED_6;
+    private static UniversalFeatureToggle.Feature otherFeature = UniversalFeatureToggle.Feature.UNUSED_7;
 
 
     @IsTest
-    private static void asInteger() {
+    private static void isDisabled() {
 
-        // Setup
-        UniversalFeatureToggle toggle 
-            = new UniversalFeatureToggle().enable(new List<Integer>{ 1, 2 });
-
-
+        // Setup & Exercise
+        UniversalFeatureToggle toggle = new UniversalFeatureToggle()
+                                                    .enable(feature)
+                                                    .toggle(feature)
+                                                    .disable(otherFeature)
+                                                    .disable(otherFeature);
         // Verify
-        System.assertEquals(1, toggle.asInteger());
-
+        System.assert(toggle.isDisabled(feature));
+        System.assert(toggle.isDisabled(otherFeature));
     }
 
 
     @IsTest
     private static void isEnabled() {
 
-        // Setup
-        UniversalFeatureToggle toggle 
-            = new UniversalFeatureToggle().enable(new List<Integer>{ 1, 3, 6 });
-
-
+        // Setup & Exercise
+        UniversalFeatureToggle toggle = new UniversalFeatureToggle()
+                                                    .enable(feature)
+                                                    .enable(otherFeature)
+                                                    .disable(feature)
+                                                    .toggle(feature);
         // Verify
-        System.assert(toggle.isEnabled(1));
-        System.assert(toggle.isEnabled(3));
-        System.assert(toggle.isEnabled(6));
-        System.assert( !toggle.isEnabled(2));
-        System.assert( !toggle.isEnabled(31));
+        System.assert(toggle.isEnabled(feature));
+        System.assert(toggle.isEnabled(otherFeature));
     }
 }
