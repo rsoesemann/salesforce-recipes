@@ -53,11 +53,18 @@ public class UniversalFeatureToggle {
 
 
     // PRIVATE
-
+    
     private void persist() {
         if( !Test.isRunningTest()) {
-            FeatureManagement.setPackageIntegerValue(FMA_FIELD, fmaValue);
+            persist(fmaValue);
         }
+    }
+
+    
+    // Note: Perform FeatureManagement calls in async to avoid MIXED_DML_OPERATION errors
+    @future
+    private static void persist(Integer value){
+        FeatureManagement.setPackageIntegerValue(FMA_FIELD, value);
     }
 
 
