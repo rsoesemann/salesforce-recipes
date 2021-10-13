@@ -85,7 +85,7 @@ private class UniversalFeatureToggle_Test {
 
 
     @IsTest
-    private static void maxValueOfmaValue() {
+    private static void maxValueOfFmaValue() {
 
         // Setup & Exercise
         UniversalFeatureToggle toggle = new UniversalFeatureToggle();
