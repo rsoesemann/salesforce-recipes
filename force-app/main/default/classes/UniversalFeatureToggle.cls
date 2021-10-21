@@ -71,7 +71,7 @@ public class UniversalFeatureToggle {
     // INNER
 
     public enum Feature { 
-        TEST_APEX_WITHOUT_V2, // Add User Story Autoname for details
+        UNUSED_1, // Add User Story Autoname for details
         UNUSED_2, // Add User Story Autoname for details
         UNUSED_3, // Add User Story Autoname for details
         UNUSED_4, // Add User Story Autoname for details
