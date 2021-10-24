@@ -5,7 +5,6 @@ public class TestsSelector extends fflib_SObjectSelector {
 			Test__c.Id,
 			Test__c.Name,
 			Test__c.Type__c,
-			Test__c.AcceptanceCriteria__c,
             Test__c.txl_Payload__c,
 			Test__c.pkl_Status__c
 		};
