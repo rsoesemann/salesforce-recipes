@@ -11,6 +11,10 @@
         <value xsi:type="xsd:string">Extension_Screen_Flow</value>
     </values>
     <values>
+        <field>UiLocation__c</field>
+        <value xsi:type="xsd:string">TestDetailsEdit</value>
+    </values>
+    <values>
         <field>UiType__c</field>
         <value xsi:type="xsd:string">Screen Flow</value>
     </values>

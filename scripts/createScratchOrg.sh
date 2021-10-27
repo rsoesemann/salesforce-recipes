@@ -17,7 +17,7 @@ echo "Creating scratch org"
 execute sfdx force:org:create -a $SCRATCH_ORG_ALIAS -s -f ./config/project-scratch-def.json -d 30
 
 echo "Install dependencies"
-execute sfdx texei:package:dependencies:install -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS
+#execute sfdx texei:package:dependencies:install -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS
 
 echo "Make sure Org user is english"
 sfdx force:data:record:update -s User -w "Name='User User'" -v "Languagelocalekey=en_US"
@@ -32,7 +32,7 @@ echo "Create sample data"
 sfdx force:apex:execute -f scripts/createSampleData.apex -u $SCRATCH_ORG_ALIAS
 
 echo "Create remote site setting"
-sfdx shane:remotesite:create -n Slowwly -u http://slowwly.robertomurray.co.uk
+#sfdx shane:remotesite:create -n Slowwly -u http://slowwly.robertomurray.co.uk
 
 echo "Running apex tests"
 execute sfdx force:apex:test:run -l RunLocalTests --synchronous

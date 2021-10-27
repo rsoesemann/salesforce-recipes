@@ -4,84 +4,16 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>actionNames</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>FeedItem.TextPost</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>FeedItem.ContentPost</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.NewEvent</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.NewTask</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Edit</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.NewContact</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.LogACall</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.NewOpportunity</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.NewCase</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Global.NewLead</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>FeedItem.RypplePost</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>FeedItem.LinkPost</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>FeedItem.PollPost</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>FeedItem.QuestionPost</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Delete</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Clone</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>ChangeOwnerOne</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>ChangeRecordType</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>PrintableView</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Share</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>IsotopeSubscription</value>
-                        </valueListItems>
-                    </valueList>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>collapsed</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsConfiguration</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsInNative</name>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>hideChatterActions</name>
@@ -89,7 +21,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
-                    <value>2</value>
+                    <value>3</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
             </componentInstance>
@@ -110,104 +42,15 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.txl_Payload__c</fieldItem>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-62010186-53ca-44f1-b9a4-f70f3a6d6af9</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-62010186-53ca-44f1-b9a4-f70f3a6d6af9</value>
+                    <name>uiLocation</name>
+                    <value>TestDetailsEdit</value>
                 </componentInstanceProperties>
-                <componentName>flexipage:column</componentName>
+                <componentName>dynamicUiLoader</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-bbe3816b-9604-4588-bc83-5a7ca36400f0</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>columns</name>
-                    <value>Facet-bbe3816b-9604-4588-bc83-5a7ca36400f0</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>Raw Data</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:fieldSection</componentName>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-51e2d2cb-db2d-4954-9c44-a3f7536f0bf0</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-51e2d2cb-db2d-4954-9c44-a3f7536f0bf0</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>Standard.Tab.fields</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>name</name>
-                    <value>accordionSection1</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:accordionSection</componentName>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-fbf1ba1e-74a0-48de-aecb-a7b4180e70b5</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>accordionSections</name>
-                    <value>Facet-fbf1ba1e-74a0-48de-aecb-a7b4180e70b5</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>defaultSectionName</name>
-                    <value>accordionSection1</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:accordion</componentName>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-f9ff4fc5-cbc2-4203-97ad-f91c89902cc1</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Test__c.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>CombinedAttachments</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>GRID</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-67580b2d-cc3a-404b-be80-2e9e9c8d1376</name>
+        <name>Facet-3aac6344-d919-42fa-b343-deccb3f79a9c</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -223,7 +66,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Overview</value>
+                    <value>Test Basics</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
@@ -232,24 +75,11 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-f9ff4fc5-cbc2-4203-97ad-f91c89902cc1</value>
+                    <value>Facet-3aac6344-d919-42fa-b343-deccb3f79a9c</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Configuration</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-67580b2d-cc3a-404b-be80-2e9e9c8d1376</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Results</value>
+                    <value>Test Details</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>

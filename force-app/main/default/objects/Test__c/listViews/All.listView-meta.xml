@@ -5,7 +5,6 @@
     <columns>Type__c</columns>
     <columns>Execute__c</columns>
     <columns>pkl_Status__c</columns>
-    <columns>AcceptanceCriteria__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

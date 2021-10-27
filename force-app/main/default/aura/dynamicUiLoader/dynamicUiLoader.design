@@ -1,0 +1,3 @@
+<design:component >
+    <design:attribute name="uiLocation" label="UI Location" required="true" />
+</design:component>

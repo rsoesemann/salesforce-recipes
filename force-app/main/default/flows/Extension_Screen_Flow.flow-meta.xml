@@ -50,34 +50,7 @@
         <locationY>638</locationY>
         <inputReference>GetRecord</inputReference>
     </recordUpdates>
-    <screens>
-        <name>LWC_embedd</name>
-        <label>LWC embedd</label>
-        <locationX>176</locationX>
-        <locationY>518</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Update_Record</targetReference>
-        </connector>
-        <fields>
-            <name>LWCComponent</name>
-            <extensionName>c:embedInFlow</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>test</name>
-                <value>
-                    <elementReference>GetRecord</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
+   
     <screens>
         <name>Wizard_Step_1</name>
         <label>Wizard Step 1</label>
@@ -106,7 +79,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>LWC_embedd</targetReference>
+            <targetReference>Update_Record</targetReference>
         </connector>
         <fields>
             <fieldType>ObjectProvided</fieldType>
