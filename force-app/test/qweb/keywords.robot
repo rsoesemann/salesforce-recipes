@@ -21,6 +21,7 @@ Start Suite
     SetConfig                   SearchMode                  draw
     SetConfig                   MultipleAnchors             True
     SetConfig                   DefaultTimeout              25
+    SetConfig                   Debug_Run                   True
     Evaluate                    random.seed()               random
 
     #Steps for test suite setup
@@ -31,9 +32,11 @@ Start Suite
     VerifyAny                   Home, User
 
 End Suite
-    [Documentation]             Logout from Salesofrce org and Close browser
-    ClickText    View Profile    
-    ClickText    Log out
+    [Documentation]             Logout from Salesofrce ORG and Close browser
+    #Steps related to test suite teardown- logout and close the browser after the test suite completion
+    ${GET_CURRENT_URL}=         GetUrl
+    ${LOGOUT_URL}=              Evaluate                    "https://" + '${GET_CURRENT_URL}'.split('/')[2] + "/secur/logout.jsp"
+    GoTo                        ${LOGOUT_URL}               #Logout
     Close All Browsers
 
 Open Object
@@ -45,8 +48,7 @@ Open Object
     TypeText                    ${SEARCH_APPS_WEBELEMENT}                               ${OBJECT}
     ${OBJECT_XPATH}=            Replace String              ${OBJECT_WEBELEMENT}        OBJECT                      ${OBJECT}
     ClickElement                ${OBJECT_XPATH}
-    #Refresh and verify object, except for "Work Manager" and "Pipeline Manager" as it works differently
-    Run Keyword If              '${OBJECT}' != 'Work Manager' and '${OBJECT}' != 'Pipeline Manager'                 Check object     ${OBJECT}
+    Check object                ${OBJECT}
 
 Check object
     [Documentation]             Check the object/tab name
@@ -117,7 +119,7 @@ Generate random name
     [Documentation]             Generate random name and return
     ${RANDOM_STRING1}=          Generate Random String
     ${RANDOM_STRING2}=          Generate Random String      6                           [NUMBERS]
-    ${NAME}=                    Evaluate                    "Automation_" + "${RANDOM_STRING1}" + "${RANDOM_STRING2}"                #Using random string twice to avoid duplicate name
+    ${NAME}=                    Evaluate                    "Random_" + "${RANDOM_STRING1}" + "${RANDOM_STRING2}"                #Using random string twice to avoid duplicate name
     [Return]                    ${NAME}
 
 Get Username
@@ -257,26 +259,18 @@ Get ID from toast message window
 
 
 Create New Account
-    [Documentation]             Create new application and return application name
+    [Documentation]             Create new account and return name
     #Open New Application window and enter the details
-    ${PRODUCT_MANAGER}=         Get Username
+    ${USER}=                    Get Username
     ClickText                   New
     VerifyText                  New Account
-    ${APPLICATION_NAME}=        Generate random name
-    Enter Input Field           Name                        ${APPLICATION_NAME}
-    Select record from lookup field                         Search People...            ${PRODUCT_MANAGER}
-    ClickText                   Stability
-    ClickText                   Stable                      anchor=--None--
-    ClickText                   Release Status
-    ClickText                   GA                          anchor=--None--
-    ${APPLICATION_DESCRIPTION}=                             Generate random name
-    ClickText                   Remove formatting
-    TypeText                    Description                 ${APPLICATION_DESCRIPTION}                              anchor=Remove formatting
-    #Save and verify new application record created succesfully
+    ${ACCOUNT_NAME}=            Generate random name
+    Enter Input Field           Account Name                ${ACCOUNT_NAME}
+    #Save and verify new record created succesfully
     ClickText                   Save                        2
     VerifyText                  Details
-    VerifyText                  ${APPLICATION_NAME}         anchor=Information
-    [Return]                    ${APPLICATION_NAME}
+    VerifyText                  ${ACCOUNT_NAME}         anchor=Information
+    [Return]                    ${ACCOUNT_NAME}
 
 Open Developer console
     [Documentation]    To open the developer console window

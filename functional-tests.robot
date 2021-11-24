@@ -25,5 +25,5 @@ Create, Update and Delete Account
     Create New Account
 
     #Then
-    Update record               Name
+    Update record               Account Name
     Delete record from object details page

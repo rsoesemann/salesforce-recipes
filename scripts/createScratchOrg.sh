@@ -15,7 +15,6 @@ fi
 
 echo "Creating scratch org"
 execute sfdx force:org:create -a $SCRATCH_ORG_ALIAS -s -f ./config/project-scratch-def.json -d 30
-AUTH_URL="$(fdx force:org:display --verbose --json | jq '.result.SubscriberPackageVersionId' | tr -d '"')"
 
 echo "Install dependencies"
 #execute sfdx texei:package:dependencies:install -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS
@@ -35,6 +34,4 @@ sfdx force:apex:execute -f scripts/createSampleData.apex -u $SCRATCH_ORG_ALIAS
 echo "Create remote site setting"
 #sfdx shane:remotesite:create -n Slowwly -u http://slowwly.robertomurray.co.uk
 
-echo "Running tests"
 sh ./runTests.sh
-

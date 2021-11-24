@@ -1,15 +1,18 @@
 #!/bin/bash
 
-echo "Running QWeb tests"
-AUTH_URL="$(sfdx force:org:display --verbose --json | jq '.result.sfdxAuthUrl')"
-eho $AUTH_URL
-robot --variable AUTH_URL:$AUTH_URL functional-tests.robot 
+echo "> QWeb tests"
+INSTANCE="$(sfdx force:org:display --verbose --json | jq -r '.result.instanceUrl')"
+SID="$(sfdx force:org:display --verbose --json | jq -r '.result.accessToken')"
+URL=$INSTANCE/secur/frontdoor.jsp?sid=$SID
+robot --variable AUTH_URL:$URL functional-tests.robot 
 
-echo "Running apex tests"
-#execute sfdx force:apex:test:run -l RunLocalTests --synchronous
+echo "> Apex tests"
+execute sfdx force:apex:test:run -l RunLocalTests --synchronous
 
-echo "Running Jest tests"
+echo "> Salesforce CLI Scanner"
+execute sfdx scanner:run --target "force-app" --pmdconfig "ruleset.xml"
 
+echo "> Jest tests"
 if [ -f "package.json" ]; then
   echo "Running jest tests"
   execute npm install 
