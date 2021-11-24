@@ -15,6 +15,7 @@ fi
 
 echo "Creating scratch org"
 execute sfdx force:org:create -a $SCRATCH_ORG_ALIAS -s -f ./config/project-scratch-def.json -d 30
+AUTH_URL="$(fdx force:org:display --verbose --json | jq '.result.SubscriberPackageVersionId' | tr -d '"')"
 
 echo "Install dependencies"
 #execute sfdx texei:package:dependencies:install -u $SCRATCH_ORG_ALIAS -v $DEV_HUB_ALIAS
@@ -36,6 +37,10 @@ echo "Create remote site setting"
 
 echo "Running apex tests"
 execute sfdx force:apex:test:run -l RunLocalTests --synchronous
+
+echo "Running QWeb tests"
+AUTH_URL="$(sfdx force:org:display --verbose --json | jq - r '.result.sfdxAuthUrl')"
+robot test/qweb/functional-tests.robot --variable AUTH_URL:$AUTH_URL 
 
 if [ -f "package.json" ]; then
   echo "Running jest tests"
