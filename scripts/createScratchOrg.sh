@@ -35,16 +35,6 @@ sfdx force:apex:execute -f scripts/createSampleData.apex -u $SCRATCH_ORG_ALIAS
 echo "Create remote site setting"
 #sfdx shane:remotesite:create -n Slowwly -u http://slowwly.robertomurray.co.uk
 
-echo "Running apex tests"
-execute sfdx force:apex:test:run -l RunLocalTests --synchronous
-
-echo "Running QWeb tests"
-AUTH_URL="$(sfdx force:org:display --verbose --json | jq - r '.result.sfdxAuthUrl')"
-robot test/qweb/functional-tests.robot --variable AUTH_URL:$AUTH_URL 
-
-if [ -f "package.json" ]; then
-  echo "Running jest tests"
-  execute npm install 
-  execute npm run test:unit
-fi
+echo "Running tests"
+sh ./runTests.sh
 
