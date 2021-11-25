@@ -19,7 +19,7 @@
         <categories>SetupNamedCredential.cls.getStatus()</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>Encoway Setup NamedCredential Finished</shortDescription>
+        <shortDescription>Setup NamedCredential Finished</shortDescription>
         <value>set up correctly.</value>
     </labels>
     <labels>
@@ -27,7 +27,7 @@
         <categories>SetupNamedCredential.cls.getStatus()</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>Encoway Setup NamedCredential Unfinished</shortDescription>
+        <shortDescription>Setup NamedCredential Unfinished</shortDescription>
         <value>has access.</value>
     </labels>
     <labels>
@@ -35,7 +35,7 @@
         <categories>SetupNamedCredential.cls.getStatus()</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>Encoway Setup NamedCredential Unfinished</shortDescription>
+        <shortDescription>Setup NamedCredential Unfinished</shortDescription>
         <value>has no access.</value>
     </labels>
     <labels>
@@ -43,15 +43,15 @@
         <categories>SetupNamedCredential.cls.query()</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>Encoway Setup NamedCredential Step Description</shortDescription>
-        <value>{0} to connect Salesforce with your Encoway backend {1}</value>
+        <shortDescription>Setup NamedCredential Step Description</shortDescription>
+        <value>{0} to connect Salesforce with your backend {1}</value>
     </labels>
     <labels>
         <fullName>SetupNamedCredentialUnfinished</fullName>
         <categories>SetupNamedCredential.cls.getStatus()</categories>
         <language>en_US</language>
         <protected>true</protected>
-        <shortDescription>Encoway Setup NamedCredential Unfinished</shortDescription>
+        <shortDescription>Setup NamedCredential Unfinished</shortDescription>
         <value>must be set up.</value>
     </labels>
     <labels>

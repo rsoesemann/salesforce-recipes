@@ -1,10 +1,8 @@
 #!/bin/bash
 
-echo "> QWeb tests"
-INSTANCE="$(sfdx force:org:display --verbose --json | jq -r '.result.instanceUrl')"
-SID="$(sfdx force:org:display --verbose --json | jq -r '.result.accessToken')"
-URL=$INSTANCE/secur/frontdoor.jsp?sid=$SID
-robot --variable AUTH_URL:$URL functional-tests.robot 
+#echo "> QWeb tests"
+URL="$(sfdx force:org:open -r --json | jq -r '.result.url')"
+robot --outputdir qweb --variable AUTH_URL:$URL functional-tests.robot 
 
 echo "> Apex tests"
 execute sfdx force:apex:test:run -l RunLocalTests --synchronous

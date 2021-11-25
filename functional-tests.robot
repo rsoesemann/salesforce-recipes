@@ -1,29 +1,63 @@
 *** Settings ***
-Documentation                   Functional tests
+Library                         QWeb
+Library                         String
+Library                         DebugLibrary
 
-Resource                        force-app/test/qweb/keywords.robot
-
-Suite Setup                     Start Suite
-Suite Teardown                  End Suite
+Suite Setup                     Setup
+Suite Teardown                  Teardown
 
 *** Test Cases ***
 
-Create, Update and Delete Account
-    [Tags]                      Accounts
-    [Documentation]             
-    #Usecase:
-    #1. Open the Account window
-    #2. Create a new Account by filling in all details
-    #3. Verify successfully created the account
-    #4. Update the account and verify it
-    #5. Delete account and verify it
+Setup Fails with invalid Named Credential URL
+    # Setup
+    AppChooser                  Recipes
 
-    #Given
-    Open Object                 Accounts
+    # Exercise
+    ClickText                   Setup
+    TypeText                    Base URL:  invalid://url
+    TypeText                    User Name:  John Doe
+    TypeText                    Password:   secret
+    ClickText                   Execute
 
-    #When
-    Create New Account
+    #Verify
+    VerifyText                  Endpoint needs to be in full URL form
 
-    #Then
-    Update record               Account Name
-    Delete record from object details page
+Setup Successfully Creates Named Credential
+    # Setup
+    AppChooser                  Recipes
+
+    # Exercise
+    ClickText                   Setup
+    TypeText                    Base URL:  https://api.acme.com
+    TypeText                    User Name:  John Doe
+    TypeText                    Password:   secret
+    ClickText                   Execute
+
+    # Verify
+    VerifyText                  backend set up correctly
+
+    # Teardown
+    #OpenSetup                   Named Credentials
+
+*** Keywords ***
+
+Setup
+    SetConfig                   SearchMode                  draw
+    SetConfig                   MultipleAnchors             True
+    SetConfig                   DefaultTimeout              25
+
+    Open Browser                ${AUTH_URL}                chrome
+
+    VerifyAny                   Home, User
+
+Teardown
+    GoTo                        "/secur/logout.jsp"      
+    Close All Browsers
+
+AppChooser
+    [Arguments]                 ${OBJECT}
+
+    ClickText                   App Launcher
+    VerifyText                  Apps
+    TypeText                    xpath\=//input[@placeholder\="Search apps and items..."]              ${OBJECT}
+    ClickText                   ${OBJECT}       2             
