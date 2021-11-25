@@ -17,7 +17,3 @@ package.xml
 # LWC Jest
 **/__tests__/**
 force-app/main/default/quickActions/Account.ActivateVfAction.quickAction-meta.xml
-
-# QWeb 
-**/qweb/**
-**/*.robot
