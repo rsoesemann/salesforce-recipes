@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionOverrides>
-        <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>TestRecordPage</content>
-        <formFactor>Small</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-        <pageOrSobjectType>Test__c</pageOrSobjectType>
-    </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>TestRecordPage</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-        <pageOrSobjectType>Test__c</pageOrSobjectType>
-    </actionOverrides>
     <brand>
         <headerColor>#FD0040</headerColor>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
@@ -30,7 +12,6 @@
     <navType>Standard</navType>
     <tabs>Setup</tabs>
     <tabs>Notification__c</tabs>
-    <tabs>Test__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Recipes_UtilityBar</utilityBar>
 </CustomApplication>

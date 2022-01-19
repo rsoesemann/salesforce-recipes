@@ -1,6 +1,0 @@
-<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasSObjectName,force:hasRecordId">
-    <c:recordForm recordId="{!v.recordId}"
-                  objectName="{!v.sObjectName}"
-                  fieldSet="CustomFieldSet"
-                  onclose="{!c.closeQA}"/>
-</aura:component>
