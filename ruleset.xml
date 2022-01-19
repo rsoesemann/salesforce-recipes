@@ -4,10 +4,13 @@
     <description>Default ruleset for PMD</description>
 
     <!-- IGNORE FILES -->
+    <exclude-pattern>.*/apex-unified-logging/*.*</exclude-pattern>
     <exclude-pattern>.*/apex-domainbuilder/*.*</exclude-pattern>
+    <exclude-pattern>.*/apex-mdapi/*.*</exclude-pattern>
+    <exclude-pattern>.*/apex-xpath/*.*</exclude-pattern>
     <exclude-pattern>.*/app-setup/*.*</exclude-pattern>
     <exclude-pattern>.*/fflib-apex-common/*.*</exclude-pattern>
-    <exclude-pattern>.*/json2apex/*.*</exclude-pattern>
+    <exclude-pattern>.*/lma-app-cockpit/*.*</exclude-pattern>
 
     <!-- STANDARD RULES -->
     
@@ -25,10 +28,9 @@
         <exclude name="ApexDoc"/>
     </rule>
 
-
     <!-- CUSTOM RULES -->
 
-       <rule name="NoUnderscoresInFieldNames" language="xml" class="net.sourceforge.pmd.lang.rule.XPathRule" message="Custom fields should not contain underscores."  >
+    <rule name="NoUnderscoresInFieldNames" language="xml" class="net.sourceforge.pmd.lang.rule.XPathRule" message="Custom fields should not contain underscores."  >
         <priority>3</priority>
         <properties>
             <property name="xpath">
@@ -48,20 +50,6 @@
             <property name="xpath">
                 <value><![CDATA[
                 //SecuritySettings[ passwordPolicies/complexity/text[@Image='No restriction'] ]
-                ]]> </value>
-            </property>
-        </properties>
-    </rule>
-
-    <rule class="net.sourceforge.pmd.lang.rule.XPathRule" language="xml" message="The default value for the password length is 8 characters. Less than 8 characters is not secure." name="a0H5g000002bou6EAA">
-        <description>Password Policies: Minimum Length</description>
-        <priority>3</priority>
-        
-        <properties>
-            <property name="version" value="2.0"></property>
-            <property name="xpath">
-                <value><![CDATA[
-                //SecuritySettings[ passwordPolicies/minimumPasswordLength/text[@Image<'8'] ]
                 ]]> </value>
             </property>
         </properties>
@@ -95,20 +83,6 @@
         </properties>
     </rule>
 
-    <rule class="net.sourceforge.pmd.lang.rule.XPathRule" language="xml" message="Allowing this user permission can give access to sensitive data." name="a0H5g000002bou9EAA">
-        <description>ViewAllData in Permission Set</description>
-        <priority>3</priority>
-        
-        <properties>
-            <property name="version" value="2.0"></property>
-            <property name="xpath">
-                <value><![CDATA[
-                //PermissionSet[ userPermissions/name/text[@Image='ViewAllData'] and userPermissions/enabled/text[@Image='true'] ]
-                ]]> </value>
-            </property>
-        </properties>
-    </rule>
-
     <rule class="net.sourceforge.pmd.lang.rule.XPathRule" language="xml" message="Due to HR policies, managing users need to be limited to System Administrator Profile only." name="a0H5g000002bouAEAQ">
         <description>Manage Users for System Administrator Profile Only</description>
         <priority>3</priority>
@@ -117,7 +91,7 @@
             <property name="version" value="2.0"></property>
             <property name="xpath">
                 <value><![CDATA[
-                //Profile[ pmd:fileName()!='System Administrator123' and userPermissions/name/text[@Image='ManageUsers'] ]
+                //Profile[ pmd:fileName()!='System Administrator' and userPermissions/name/text[@Image='ManageUsers'] ]
                 ]]> </value>
             </property>
         </properties>
@@ -137,22 +111,8 @@
         </properties>
     </rule>
 
-    <rule class="net.sourceforge.pmd.lang.rule.XPathRule" language="xml" message="Passwords need to expire every 90 days for security." name="a0H5g000002bouCEAQ">
-        <description>Password Policies: Expiration</description>
-        <priority>3</priority>
-        
-        <properties>
-            <property name="version" value="2.0"></property>
-            <property name="xpath">
-                <value><![CDATA[
-                //SecuritySettings[ passwordPolicies/expiration/text[@Image='Never'] or passwordPolicies/expiration/text[@Image='SixMonths'] or passwordPolicies/expiration/text[@Image='OneYear'] ]
-                ]]> </value>
-            </property>
-        </properties>
-    </rule>
-
     <rule class="net.sourceforge.pmd.lang.rule.XPathRule" language="xml" message="Exposing the setup menu to non-authorized users." name="a0H5g000002bouDEAQ">
-        <description>ViewSetup is restricted to Sys Admin</description>
+        <description>ViewSetup is restricted to SysAdmin</description>
         <priority>3</priority>
         
         <properties>

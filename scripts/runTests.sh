@@ -2,7 +2,7 @@
 
 #echo "> QWeb tests"
 URL="$(sfdx force:org:open -r --json | jq -r '.result.url')"
-robot --outputdir qweb --variable AUTH_URL:$URL functional-tests.robot 
+robot --outputdir qweb --variable AUTH_URL:$URL qweb/functional-tests.robot 
 
 echo "> Apex tests"
 execute sfdx force:apex:test:run -l RunLocalTests --synchronous
