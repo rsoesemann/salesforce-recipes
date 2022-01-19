@@ -2,8 +2,8 @@ public class Opportunities extends fflib_SObjectDomain {
 
     // CONSTRUCTOR
 
-    public Opportunities(List<Opportunity> sObjectList) {
-        super(sObjectList);
+    public Opportunities(List<Opportunity> records) {
+        super(records);
     }
 
 
@@ -31,8 +31,8 @@ public class Opportunities extends fflib_SObjectDomain {
     // INNER
 
     public class Constructor implements fflib_SObjectDomain.IConstructable {
-        public fflib_SObjectDomain construct(List<SObject> sObjectList) {
-            return new Opportunities(sObjectList);
+        public fflib_SObjectDomain construct(List<SObject> records) {
+            return new Opportunities(records);
         }
     }
 }

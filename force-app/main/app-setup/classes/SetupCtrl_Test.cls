@@ -11,7 +11,6 @@ private class SetupCtrl_Test {
 
         // Exercise
         try {
-            Test.setCurrentPage(Page.setup);
             ctrl = new MySetupCtrl();
         }
         catch(Exception ex) {

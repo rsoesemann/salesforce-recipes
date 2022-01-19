@@ -70,7 +70,7 @@ public abstract class SetupStep {
 
 
     protected PageReference refresh() {
-        PageReference result = Page.setup;
+        PageReference result = ApexPages.currentPage();
         result.setRedirect(true);
         return result;
     }
@@ -162,7 +162,7 @@ public abstract class SetupStep {
 
 
     protected PageReference currentPage() {
-        PageReference result = Page.setup;
+        PageReference result = ApexPages.currentPage();
         result.setRedirect(true);
         return result;
     }

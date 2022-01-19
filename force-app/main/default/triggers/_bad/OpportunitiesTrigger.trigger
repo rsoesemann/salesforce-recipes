@@ -66,7 +66,7 @@ trigger OpportunitiesTrigger on Opportunity (after insert, after update, before 
 
         System.debug('oppsA -- '+ opUnitMap.size() );
 
-        for(Opportunity op:  [SELECT Name, Id,Amount, CreatedById, Description, DeliveryInstallationStatus__c, StageName
+        for(Opportunity op:  [SELECT Name, Id,Amount, CreatedById, Description, StageName
         FROM Opportunity
         WHERE Id IN :opIds
         AND StageName != 'Shop Opened'
