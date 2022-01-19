@@ -19,7 +19,7 @@ public without sharing class AccountsSelector extends fflib_SObjectSelector {
     }
 
 
-    public List<Account> byIds(Set<Id> ids) {
+    public List<Account> byId(Set<Id> ids) {
         return (List<Account>) Database.query( newQueryFactory()
                                                     .setCondition('Id IN :ids')
                                                     .toSOQL());
