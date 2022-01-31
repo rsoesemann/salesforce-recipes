@@ -10,7 +10,6 @@
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <label>Recipes</label>
     <navType>Standard</navType>
-    <tabs>Setup</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Recipes_UtilityBar</utilityBar>
 </CustomApplication>

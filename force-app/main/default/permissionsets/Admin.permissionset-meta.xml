@@ -8,22 +8,10 @@
         <apexClass>ActivateAccountCtrl</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>SetupPageCtrl</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Admin</label>
     <pageAccesses>
         <apexPage>activateAccountButton</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
-    <pageAccesses>
-        <apexPage>setup</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
-    <tabSettings>
-        <tab>Setup</tab>
-        <visibility>Visible</visibility>
-    </tabSettings>
 </PermissionSet>
