@@ -79,6 +79,9 @@
 - Good Names reveal intentions and hide implementation details (Name should be stable, implementations change)
 - The more important a name is the simpler it must be. CamelCaseHumps are a sign of overcomplicated naming
 - Prefixing non-void methods with get... was needed in Java but is bad style in Apex. Having all methods start with g wont help readability. int age() and void age(int value) is much clearer.
+- For Custom Objects and Custom Fields, API Names should always follow PascalCase convention. This indicates that you really took care when providing the API name rather than leaving the default Salesforce name with underscores replacing whitespaces. In the same way, variables in apex should follow camelCase conventions except for contants, which should follow SNAKE_CASE convention.
+- Avoid [Hungarian notation](https://en.wikipedia.org/wiki/Hungarian_notation) where variable type is encoded in the variable name.
+- Follow [Microsoft Guidelines for abbreviations and acronyms](https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-1.1/141e06ef(v=vs.71)?redirectedfrom=MSDN). Avoid abbreviations, use only well known acronyms and always use PascalCase or camelCase for them.
 - Examples:
   - `RegistrationQueue` is better than `PlatformEventHandler`
   - `age` is better than `intAge`
@@ -87,6 +90,7 @@
   - age() is better than getAge()
   - `explode()` is better than `triggerExplosionInitiation()`
   - `Result` is better than `ResultWrapper`
+  - `encodedUrl` is better than `encodedURL`
 - Encourage reviewers to propose better names
 
 ### Naming Examples
@@ -94,12 +98,12 @@
 - **Trigger:** Just the Object name as Plural. Dont' add the word "Trigger" as it is in the filename `.trigger` or the UI anyway.
 - **Invocable:** Name it verb/command style and call the method `execute`: e.g. `RunApexTests.execute()`
 - **VF/LWC Controller:** Indicate its a Controller (add easyly to permset) and who uses it `newContact.action` --> `NewContactActionCtrl` 
-- **Custom Objects:** 
-- **Custom Fields:** 
+- **Custom Objects:** `CreditCard__c`
+- **Custom Fields:** `CreditCardNumber__c`
 
 ## Apex Classes and Triggers
 - Test Classes are private, regular class public and you need a very good reason foir making it global. Put a // NOTE: on top to explain why.
-- Except private classes are with sharing. If you leave it away or have different sharing put a // NOTE: on top to explain why
+- Aside form test classes, all classes should have a sharing declaration. Most of classes should usually have `with sharing` declaration except for classes such as Selectors or other classes that are always delegated, who should have `inherithed sharing` to operate under calling class sharing specification. If omitted or `without sharing`, you should write a // NOTE: on top to explain why
 - As Apex IDEs don't do that for you (other than Java IDEs) structure your classes using // Constructor // Public // Private // Inner section comments
 - Test classes just have an optional [// Helper]() section comment for private methods used by mutltiple tests
 - A class should read like a good newpaper article, where the most important stuff comes at the beginning. Move implementation details to the end. And show the broad algorithm and actors on top. It's definitly not like a book where you need to read to the end to understand it.
