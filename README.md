@@ -5,8 +5,9 @@
   - [Reach out for help, when stuck for too long](#reach-out-for-help-when-stuck-for-too-long)
   - [Leave code cleaner than I found it (Boy scout rule)](#leave-code-cleaner-than-i-found-it-boy-scout-rule)
   - [Grow a safety net of awesome tests](#grow-a-safety-net-of-awesome-tests)
-  - [Always care about non-functional aspects](#always-care-about-non-functional-aspects)
   - [Let peers & tools constantly review my code](#let-peers--tools-constantly-review-my-code)
+  - [Always care about non-functional aspects](#always-care-about-non-functional-aspects)
+
 - [Guidelines](#guidelines)
   - [Code Style - Consistent is better than sophisticated](#code-style---consistent-is-better-than-sophisticated)
   - [Naming is important. And hard.](#naming-is-important-and-hard)
@@ -15,7 +16,8 @@
   - [Apex Tests](#apex-tests)
   - [Salesforce Best Practices](#salesforce-best-practices)
   - [Deleting Managed Metadata is dangerous](#deleting-managed-metadata-is-dangerous)
-# Ground Rules
+  - 
+# 7 Ground Rules - As a Salesforce Developer, I will...
 
 ## Constantly learn and keep myself up-to-date
 - I read the Release Notes to know what happens on the Platform
@@ -47,13 +49,6 @@
 - I don't write alibi tests. 
 - I invest in an awesome safety net of good tests. 
 - I write good minimal tests with near 100% coverage
-
-## Always care about non-functional aspects
-- Only developers really understand and can properly design aspects like security, scalability and platform-specific limitations. As a Developer I constantly learn and grow my knowledge about Salesforce when it come to coping with Governor Limits, Security constrains, Coping with Large Data Volumes, Asynchronous Operations and the specific behaviour of metadata package and released as a Managed Package. Whenever I design or develop a feature I thing about how the thing I do can affect the security and performance of the system as well as the future flexibility.
-  - [Security](https://developer.salesforce.com/docs/atlas.en-us.234.0.apexcode.meta/apexcode/apex_security_sharing_chapter.htm)
-  - [Scalability & Volumes](https://www.apexhours.com/building-scalable-solutions-on-salesforce/)
-  - [Consequences of changes (data model additions, deprecations)](https://developer.salesforce.com/docs/atlas.en-us.packagingGuide.meta/packagingGuide/packaging_component_behavior.htm)
-  - [Readability, Maintainability, Testability, Extensibility of a solution](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
 							
 ## Let peers & tools constantly review my code
 
@@ -63,6 +58,13 @@
 - Nobody should ask for a Review before he committed, checked the Quality Tool results, and fixed them in a second commit. If PMD reports false positives that need to be documented and discussed in the review. Only if I discuss it I can adjust/deactivate certain rules in Codacy.
 - I never test somebody's code during a PR review. Here is why: https://www.yegor256.com/2019/12/03/testing-in-code-review.html
 - Reviewers NEVER MERGE PRs. That is the job of the developer.
+
+## Always care about non-functional aspects
+- Only developers really understand and can properly design aspects like security, scalability and platform-specific limitations. As a Developer I constantly learn and grow my knowledge about Salesforce when it come to coping with Governor Limits, Security constrains, Coping with Large Data Volumes, Asynchronous Operations and the specific behaviour of metadata package and released as a Managed Package. Whenever I design or develop a feature I thing about how the thing I do can affect the security and performance of the system as well as the future flexibility.
+  - [Security](https://developer.salesforce.com/docs/atlas.en-us.234.0.apexcode.meta/apexcode/apex_security_sharing_chapter.htm)
+  - [Scalability & Volumes](https://www.apexhours.com/building-scalable-solutions-on-salesforce/)
+  - [Consequences of changes (data model additions, deprecations)](https://developer.salesforce.com/docs/atlas.en-us.packagingGuide.meta/packagingGuide/packaging_component_behavior.htm)
+  - [Readability, Maintainability, Testability, Extensibility of a solution](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
 
 
 # Guidelines
