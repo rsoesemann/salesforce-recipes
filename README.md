@@ -1,5 +1,4 @@
-
-- [Ground Rules](#ground-rules)
+- [7 Ground Rules - As a Salesforce Developer, I will...](#ground-rules)
   - [Constantly learn and keep myself up-to-date](#constantly-learn-and-keep-myself-up-to-date)
   - [Write as few code as possible](#write-as-few-code-as-possible)
   - [Reach out for help, when stuck for too long](#reach-out-for-help-when-stuck-for-too-long)
