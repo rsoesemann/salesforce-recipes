@@ -1,0 +1,26 @@
+name: Static Analysis using PMD
+on: 
+  push:
+  pull_request:
+    types: [opened, reopened, edited]
+  workflow_dispatch:
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - uses: pmd/pmd-github-action@v1
+        with:
+          rulesets: 'ruleset.xml'
+          analyzeModifiedFilesOnly: false
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: pmd-report.sarif
+
+
+
+
