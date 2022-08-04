@@ -7,6 +7,8 @@
 .localdevserver/
 out/
 
+.dccache
+
 # LWC VSCode autocomplete
 **/lwc/jsconfig.json
 
