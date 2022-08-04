@@ -97,9 +97,4 @@ global class Voldemort {
 		String LastName = 'Mueller';
 		Integer annual_Salary = 100000;
 	}
-
-
-	public void Bad_Method_NAMING() {
-		doStuff(null);
-	}
 }
