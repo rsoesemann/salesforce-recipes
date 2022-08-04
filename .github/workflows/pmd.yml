@@ -1,6 +1,5 @@
 name: Static Analysis using PMD
 on: 
-  push:
   pull_request:
     types: [opened, reopened, edited]
   workflow_dispatch:
