@@ -1,4 +1,4 @@
-name: Static Analysis using SFDX Scanner
+name: SFDX Scanner (Static Code Analysis)
 on:
   pull_request:
     types: [opened, reopened, synchronize]
