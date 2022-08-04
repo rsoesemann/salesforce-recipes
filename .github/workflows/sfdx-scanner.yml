@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 name: SFDX Scanner (Static Code Analysis)
-=======
-name: SFDX Scanner (Static Analysis)
->>>>>>> 615bff2d75e34e4b90bcd380810c883e06507cb1
 on:
   pull_request:
     types: [opened, reopened, synchronize]
