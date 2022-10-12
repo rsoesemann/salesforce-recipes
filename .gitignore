@@ -6,6 +6,7 @@
 .sfdx/
 .localdevserver/
 out/
+.sf/
 
 .dccache
 
