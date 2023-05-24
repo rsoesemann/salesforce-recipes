@@ -88,6 +88,9 @@
   - age() is better than getAge()
   - `explode()` is better than `triggerExplosionInitiation()`
   - `Result` is better than `ResultWrapper`
+  - `Registration` is better than `RegistrationService` or `...Manager` 
+  - Abbreviations like `RegistrationSvc` or `RegistrationMngr` are even worse. 
+  
 - Encourage reviewers to propose better names
 
 ### Naming Examples
