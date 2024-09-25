@@ -71,7 +71,7 @@
 ## Code Style - Consistent is better than sophisticated
 - Apex code and Flow names follows the [Google Code Conventions for Java](https://google.github.io/styleguide/javaguide.html)
 - Function code should use their languages conventions
-- Use Automatic Style using Prettier
+- Use Automatic Style using Prettier [(even if it sucks) or something less opinionated](https://salesforce.stackexchange.com/q/284806/256)
 - Readability is more important than Consistency but Consistency is less subjective and easier to enforce. If you propose an improvement to readability thingk about objective proof and easy ways to enforce it.
 
 ## Naming is important. And hard.
